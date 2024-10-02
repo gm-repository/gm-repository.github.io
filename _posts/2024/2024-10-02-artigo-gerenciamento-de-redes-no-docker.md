@@ -9,16 +9,15 @@ tags: [docker, redes, iptables, ipv6, segurança]
 
 ### Sumário
 
-1. [Parte 1: Conceitos Fundamentais de Redes no Docker e Tipos de Redes Disponíveis](#parte-1-conceitos-fundamentais-de-redes-no-docker-e-tipos-de-redes-disponiveis)
-2. [Parte 2: Configuração e Gerenciamento de Redes Customizadas no Docker](#parte-2-configuracao-e-gerenciamento-de-redes-customizadas-no-docker)
-3. [Parte 3: Comunicação Entre Containers em Diferentes Redes](#parte-3-comunicacao-entre-containers-em-diferentes-redes)
-4. [Parte 4: Integração do Docker com iptables](#parte-4-integracao-do-docker-com-iptables)
-5. [Parte 5: Como Alterar a Rede Padrão do Docker](#parte-5-como-alterar-a-rede-padrao-do-docker)
-6. [Parte 6: Configuração do Suporte a IPv6 no Docker](#parte-6-configuracao-do-suporte-a-ipv6-no-docker)
+1. [Parte 1: Conceitos Fundamentais de Redes no Docker e Tipos de Redes Disponíveis](#parte-1-conceitos-fundamentais-de-redes-no-docker-e-tipos-de-redes-disponíveis)
+2. [Parte 2: Configuração e Gerenciamento de Redes Customizadas no Docker](#parte-2-configuração-e-gerenciamento-de-redes-customizadas-no-docker)
+3. [Parte 3: Comunicação Entre Containers em Diferentes Redes](#parte-3-comunicação-entre-containers-em-diferentes-redes)
+4. [Parte 4: Integração do Docker com iptables](#parte-4-integração-do-docker-com-iptables)
+5. [Parte 5: Como Alterar a Rede Padrão do Docker](#parte-5-como-alterar-a-rede-padrão-do-docker)
+6. [Parte 6: Configuração do Suporte a IPv6 no Docker](#parte-6-configuração-do-suporte-a-ipv6-no-docker)
 7. [Parte 7: Drivers de Rede no Docker](#parte-7-drivers-de-rede-no-docker)
-8. [Parte 8: Práticas Recomendadas de Segurança para Redes no Docker](#parte-8-praticas-recomendadas-de-seguranca-para-redes-no-docker)
-9. [Parte 9: Resolução de Problemas (Troubleshooting)](#parte-9-resolucao-de-problemas-troubleshooting)
-10. [Conclusão](#conclusao)
+8. [Parte 8: Práticas Recomendadas de Segurança para Redes no Docker](#parte-8-práticas-recomendadas-de-segurança-para-redes-no-docker)
+9. [Parte 9: Resolução de Problemas (Troubleshooting)](#parte-9-resolução-de-problemas-troubleshooting-no-docker)
 
 
 ---

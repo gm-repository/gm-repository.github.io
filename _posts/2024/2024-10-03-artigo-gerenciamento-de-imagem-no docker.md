@@ -77,10 +77,6 @@ excerpt: "Aprenda a gerenciar imagens Docker com práticas recomendadas de cria�
 
 ---
 
-Agora vamos reescrever a **Parte 2: Otimização e Segurança**, incluindo as melhorias sugeridas para aprofundar os tópicos e fornecer exemplos práticos. 
-
----
-
 ### **Parte 2: Otimização e Segurança**
 
 3. **Otimização de Imagens Docker**:
@@ -139,10 +135,6 @@ Agora vamos reescrever a **Parte 2: Otimização e Segurança**, incluindo as me
          ```
      - **Segregação de redes**: Use redes Docker para isolar containers que não precisam se comunicar entre si, reduzindo a superfície de ataque.
    - Além disso, sempre que possível, adote políticas de segurança que incluem o **controle de acesso baseado em funções** (RBAC), permitindo que apenas usuários autorizados tenham permissão para criar, modificar ou implantar imagens.
-
----
-
-Agora vamos reescrever a **Parte 3: Gerenciamento Prático**, incorporando as sugestões de melhoria. Vou aprofundar os temas relacionados ao backup, restauração, repositórios e registros de imagens Docker, com exemplos práticos e dicas adicionais.
 
 ---
 
@@ -210,10 +202,6 @@ Agora vamos reescrever a **Parte 3: Gerenciamento Prático**, incorporando as su
 
 ---
 
-Agora vamos reescrever a **Parte 4: Atualização e Automação**, com foco em como manter imagens atualizadas e como integrar o gerenciamento de imagens em pipelines de CI/CD, utilizando ferramentas populares. Vamos adicionar exemplos práticos e expandir as explicações.
-
----
-
 ### **Parte 4: Atualização e Automação**
 
 7. **Atualização e Manutenção de Imagens**:
@@ -241,14 +229,12 @@ Agora vamos reescrever a **Parte 4: Atualização e Automação**, com foco em c
          - build
          - deploy
 
-       # Etapa de build
        build-image:
          stage: build
          script:
            - docker build -t registry.gitlab.com/meu-projeto/minha-imagem:latest .
            - docker push registry.gitlab.com/meu-projeto/minha-imagem:latest
 
-       # Etapa de deploy
        deploy-image:
          stage: deploy
          script:
@@ -302,9 +288,6 @@ Agora vamos reescrever a **Parte 4: Atualização e Automação**, com foco em c
 
 ---
 
-Agora vamos finalizar o artigo com a reescrita da **Parte 5: Revisão e Conclusão**, onde revisamos os tópicos mais relevantes e damos uma conclusão prática sobre o gerenciamento de imagens Docker. Também adicionarei tópicos complementares, conforme mencionado anteriormente.
-
----
 
 ### **Parte 5: Revisão e Conclusão**
 

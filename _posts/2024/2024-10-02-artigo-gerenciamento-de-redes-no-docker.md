@@ -9,15 +9,16 @@ tags: [docker, redes, iptables, ipv6, segurança]
 
 ### Sumário
 
-1. [Parte 1: Conceitos Fundamentais de Redes no Docker e Tipos de Redes Disponíveis](#parte-1-conceitos-fundamentais-de-redes-no-docker-e-tipos-de-redes-disponíveis)
-2. [Parte 2: Configuração e Gerenciamento de Redes Customizadas no Docker](#parte-2-configuração-e-gerenciamento-de-redes-customizadas-no-docker)
-3. [Parte 3: Comunicação Entre Containers em Diferentes Redes](#parte-3-comunicação-entre-containers-em-diferentes-redes)
-4. [Parte 4: Integração do Docker com iptables](#parte-4-integração-do-docker-com-iptables)
-5. [Parte 5: Como Alterar a Rede Padrão do Docker](#parte-5-como-alterar-a-rede-padrão-do-docker)
-6. [Parte 6: Configuração do Suporte a IPv6 no Docker](#parte-6-configuração-do-suporte-a-ipv6-no-docker)
+1. [Parte 1: Conceitos Fundamentais de Redes no Docker e Tipos de Redes Disponíveis](#parte-1-conceitos-fundamentais-de-redes-no-docker-e-tipos-de-redes-disponiveis)
+2. [Parte 2: Configuração e Gerenciamento de Redes Customizadas no Docker](#parte-2-configuracao-e-gerenciamento-de-redes-customizadas-no-docker)
+3. [Parte 3: Comunicação Entre Containers em Diferentes Redes](#parte-3-comunicacao-entre-containers-em-diferentes-redes)
+4. [Parte 4: Integração do Docker com iptables](#parte-4-integracao-do-docker-com-iptables)
+5. [Parte 5: Como Alterar a Rede Padrão do Docker](#parte-5-como-alterar-a-rede-padrao-do-docker)
+6. [Parte 6: Configuração do Suporte a IPv6 no Docker](#parte-6-configuracao-do-suporte-a-ipv6-no-docker)
 7. [Parte 7: Drivers de Rede no Docker](#parte-7-drivers-de-rede-no-docker)
-8. [Parte 8: Práticas Recomendadas de Segurança para Redes no Docker](#parte-8-práticas-recomendadas-de-segurança-para-redes-no-docker)
-9. [Parte 9: Resolução de Problemas (Troubleshooting)](#parte-9-resolução-de-problemas-troubleshooting-no-docker)
+8. [Parte 8: Práticas Recomendadas de Segurança para Redes no Docker](#parte-8-praticas-recomendadas-de-seguranca-para-redes-no-docker)
+9. [Parte 9: Resolução de Problemas (Troubleshooting)](#parte-9-resolucao-de-problemas-troubleshooting)
+10. [Conclusão](#conclusao)
 
 
 ---
@@ -157,6 +158,79 @@ Esses comandos ajudam a monitorar e gerenciar suas redes, garantindo que o tráf
 
 ---
 
+#### **Gerenciamento de DNS no Docker**
+
+O Docker oferece mecanismos para configurar os servidores de DNS usados por containers, permitindo maior controle sobre a resolução de nomes, especialmente em ambientes onde a comunicação entre containers e outros serviços depende de configurações específicas de DNS.
+
+##### Especificando Servidores DNS
+
+Por padrão, o Docker utiliza o servidor DNS configurado no host. No entanto, você pode definir servidores DNS personalizados usando a opção `--dns` no comando `docker run`.
+
+**Exemplo**:
+
+```bash
+docker run -dit --dns 8.8.8.8 nginx
+```
+
+Neste exemplo, o container `nginx` usará o servidor DNS do Google (`8.8.8.8`) para resolver os nomes de domínio.
+
+##### Configurando Domínios de Busca (Search Domains)
+
+Além de especificar um servidor DNS, o Docker permite configurar **domínios de busca** para containers, o que facilita a resolução de nomes de domínio internos em uma rede privada.
+
+**Exemplo**:
+
+```bash
+docker run -dit --dns-search exemplo.com nginx
+```
+
+Esse comando faz com que o container adicione `exemplo.com` como um domínio de busca. Isso significa que quando o container tenta resolver um nome como `meu-servico`, ele automaticamente tentará resolver `meu-servico.exemplo.com`.
+
+##### Configurando Hostnames e Domain Names
+
+Você também pode personalizar o **hostname** e o **domain name** do container ao iniciar um container. Isso é útil em ambientes onde você precisa controlar a identidade de rede dos containers.
+
+**Exemplo**:
+
+```bash
+docker run -dit --hostname meu-container --dns-search exemplo.com nginx
+```
+
+Neste caso, o container terá o hostname `meu-container` e fará parte do domínio `exemplo.com`.
+
+##### Configurações DNS Persistentes com Redes Customizadas
+
+Ao criar uma rede customizada, o Docker permite definir configurações de DNS diretamente na rede, tornando as configurações persistentes para todos os containers que forem conectados a ela.
+
+**Exemplo**:
+
+```bash
+docker network create \
+  --driver bridge \
+  --dns 8.8.8.8 \
+  --dns 8.8.4.4 \
+  minha-rede-com-dns
+```
+
+Todos os containers conectados à rede `minha-rede-com-dns` usarão os servidores DNS configurados (`8.8.8.8` e `8.8.4.4`).
+
+---
+
+#### Conectando Containers a Redes Customizadas
+
+Depois de criar uma rede customizada, você pode conectar containers a ela facilmente especificando a rede no comando `docker run`.
+
+Exemplo:
+
+```bash
+docker run -dit --name container1 --network minha-rede-customizada nginx
+docker run -dit --name container2 --network minha-rede-customizada nginx
+```
+
+Esses dois containers agora estão conectados à rede `minha-rede-customizada` e podem se comunicar entre si usando essa rede.
+
+---
+
 ### Parte 3: Comunicação Entre Containers em Diferentes Redes
 
 Containers conectados a diferentes redes no Docker, por padrão, não conseguem se comunicar diretamente. Isso é feito para garantir o isolamento entre redes, aumentando a segurança e a flexibilidade no controle de tráfego. No entanto, em alguns casos, você pode querer que containers em diferentes redes se comuniquem, seja dentro do mesmo host ou em hosts distintos.
@@ -210,6 +284,39 @@ O isolamento entre redes no Docker é uma importante prática de segurança, esp
 
 **Sugestão de prática**:
 - **Criação de redes customizadas por microserviço**: isole diferentes partes da aplicação, limitando o tráfego de rede entre elas, e configure proxies ou firewalls para controlar o acesso.
+
+---
+
+#### **Gerenciamento de Links no Docker**
+
+Antes da introdução de redes customizadas, o Docker usava uma funcionalidade chamada `--link` para conectar containers, permitindo a comunicação entre eles sem precisar de uma rede dedicada. Embora o uso de links tenha sido gradualmente substituído pelas redes modernas do Docker, eles ainda podem ser úteis em ambientes legados.
+
+##### Usando `--link` para Conectar Containers
+
+O comando `--link` permite conectar um container a outro, simplificando a comunicação entre eles sem a necessidade de criar uma rede específica.
+
+**Exemplo**:
+
+```bash
+docker run -dit --name meu-banco mysql
+docker run -dit --name minha-app --link meu-banco:mysql-app nginx
+```
+
+Neste exemplo, o container `minha-app` pode se comunicar com o container `meu-banco` usando o alias `mysql-app` para resolver o nome do serviço de banco de dados.
+
+- **Alias de link**: O segundo container (`minha-app`) acessa o primeiro container (`meu-banco`) usando o nome ou alias definido no comando `--link`.
+- **Comando descontinuado**: Embora funcional, o uso de `--link` é desencorajado (deprecated) e substituído pelo uso de **redes customizadas**, que oferecem mais flexibilidade e controle.
+
+##### Alternativas para `--link`
+
+Com o avanço do Docker, as redes customizadas substituíram os links como a forma preferida de conectar containers. As redes oferecem isolamento, controle de IPs, e permitem que containers em diferentes hosts ou redes overlay se comuniquem facilmente.
+
+- **Redes customizadas**:
+  ```bash
+  docker network create minha-rede
+  docker run -dit --name container1 --network minha-rede nginx
+  docker run -dit --name container2 --network minha-rede mysql
+  ```
 
 ---
 
@@ -297,6 +404,40 @@ O uso do `iptables` no Docker oferece grande flexibilidade, mas também pode int
 - **Regras de NAT**: Revisar frequentemente as regras de NAT e redirecionamento de portas, especialmente em ambientes de produção.
 - **Exposição de Portas**: Evitar expor portas de containers ao público, a menos que seja estritamente necessário.
 - **Firewalls externos**: Complementar a segurança com firewalls externos ou políticas de rede adicionais.
+
+---
+
+#### **Gerenciamento de Portas no Docker**
+
+O gerenciamento de portas é essencial para expor os serviços em execução dentro dos containers para o mundo externo. O Docker permite o mapeamento de portas do host para o container, controlando a acessibilidade externa dos serviços.
+
+##### Redirecionamento de Portas (Port Mapping)
+
+O redirecionamento de portas é feito com a opção `-p` ou `--publish` no comando `docker run`. Isso conecta uma porta específica do host a uma porta do container.
+
+**Exemplo**:
+
+```bash
+docker run -dit -p 8080:80 nginx
+```
+
+Nesse exemplo, a porta `8080` do host é mapeada para a porta `80` do container que está executando o NGINX.
+
+- **-p [host_port]:[container_port]**: Mapeia a porta do host para a porta do container.
+- **Expor múltiplas portas**:
+
+  ```bash
+  docker run -dit -p 8080:80 -p 443:443 nginx
+  ```
+
+Você pode expor múltiplas portas, como no exemplo acima, onde as portas HTTP (80) e HTTPS (443) são mapeadas para o host.
+
+##### Considerações de Segurança
+
+Ao expor portas de containers, é importante seguir boas práticas de segurança:
+
+- **Expor apenas as portas necessárias**: Minimize a superfície de ataque, evitando expor portas que não precisam de acesso externo.
+- **Usar firewalls**: Complementar com ferramentas como `ufw` ou `firewalld` para limitar o acesso às portas expostas.
 
 ---
 

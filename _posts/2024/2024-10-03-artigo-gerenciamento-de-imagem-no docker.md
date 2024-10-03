@@ -224,24 +224,26 @@ excerpt: "Aprenda a gerenciar imagens Docker com práticas recomendadas de cria�
    - A **integração de Docker em pipelines CI/CD** permite automatizar o processo de construção, teste e deploy de imagens Docker, tornando o ciclo de desenvolvimento mais ágil e confiável. Ferramentas como **Jenkins**, **GitLab CI**, **GitHub Actions**, e **CircleCI** suportam nativamente a automação de imagens Docker.
    - **Exemplo prático de pipeline CI/CD usando GitLab CI**:
      - A seguir está um exemplo de um pipeline GitLab que automatiza a construção e o deploy de uma imagem Docker para um registro privado. O pipeline possui dois estágios: `build` e `deploy`.
-      ```yaml
+
+       ```yaml
        stages:
-         - build
-         - deploy
+        - build
+        - deploy
 
+       # Etapa de Build
        build-image:
-         stage: build
-         script:
-           - docker build -t registry.gitlab.com/meu-projeto/minha-imagem:latest .
-           - docker push registry.gitlab.com/meu-projeto/minha-imagem:latest
-
+        stage: build
+        script:
+          - docker build -t registry.gitlab.com/meu-projeto/minha-imagem:latest .
+          - docker push registry.gitlab.com/meu-projeto/minha-imagem:latest
+       
+       # Etapa de deploy
        deploy-image:
-         stage: deploy
-         script:
-           - docker pull registry.gitlab.com/meu-projeto/minha-imagem:latest
-           - docker run -d -p 80:80 registry.gitlab.com/meu-projeto/minha-imagem:latest
-      ```
-
+        stage: deploy
+        script:
+          - docker pull registry.gitlab.com/meu-projeto/minha-imagem:latest
+          - docker run -d -p 80:80 registry.gitlab.com/meu-projeto/minha-imagem:latest
+       ```
 
      - Nesse pipeline, a imagem Docker é automaticamente construída e enviada para o registro GitLab. Na etapa de `deploy`, a imagem é baixada e executada em um ambiente de produção.
    

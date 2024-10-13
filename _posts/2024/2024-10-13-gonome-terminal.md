@@ -5,6 +5,18 @@ date: 2024-10-13 13:00:00 -0300
 categories: linux terminal produtividade
 ---
 
+## Sumário
+
+1. [Personalização Visual do GNOME Terminal](#parte-1-personalização-visual-do-gnome-terminal)  
+2. [Atalhos de Teclado Personalizados](#parte-2-atalhos-de-teclado-personalizados)  
+3. [Configuração de Shell (Bash ou Zsh)](#parte-3-configuração-de-shell-bash-ou-zsh)  
+4. [Scripts e Alias para Automação](#parte-4-scripts-e-alias-para-automação)  
+5. [Ferramentas para Aumentar a Produtividade](#parte-5-ferramentas-para-aumentar-a-produtividade)  
+6. [Configuração de Histórico e Eficiência no Shell](#parte-6-configuração-de-histórico-e-eficiência-no-shell)  
+7. [Automatização de Tarefas Comuns](#parte-7-automatização-de-tarefas-comuns)  
+8. [Integração com SSH](#parte-8-integração-com-ssh)  
+
+
 ## Introdução
 Este tutorial é para administradores de sistemas Linux que usam o GNOME Terminal no Ubuntu. Ele fornece dicas práticas e personalizações para otimizar sua produtividade, desde ajustes visuais até automações com tmux, cron, e SSH.
 

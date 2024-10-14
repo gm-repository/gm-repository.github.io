@@ -14,10 +14,10 @@ tags: [SSH, Linux, Automação, Segurança]
 3. [Usando o SSH Agent para Chaves com Senha](#parte-3-usando-o-ssh-agent-para-chaves-com-senha) 
 4. [Personalização do GNOME Terminal para SSH](#parte-4-personalização-do-gnome-terminal-para-ssh) 
 5. [Ferramentas Complementares para Gerenciar Conexões SSH](#parte-5-ferramentas-complementares-para-gerenciar-conexões-ssh) 
-6. [Automação Avançada com SSH e Scripts](#parte-6-automaçao-avançada-com-ssh-e-scripts) 
+6. [Automação Avançada com SSH e Scripts](#parte-6-automação-avançada-com-ssh-e-scripts) 
 7. [Segurança Avançada com SSH](#parte-7-segurança-avançada-com-ssh) 
 8. [Monitoramento Remoto de Servidores via SSH](#parte-8-monitoramento-remoto-de-servidores-via-ssh) 
-9. [Dicas de Automação Avançada com SSH](#parte-9-dicas-de-automaçao-avançada-com-ssh) 
+9. [Dicas de Automação Avançada com SSH](#parte-9-dicas-de-automação-avançada-com-ssh) 
 10. [Segurança Avançada com Chaves SSH](#parte-10-segurança-avançada-com-chaves-ssh) 
 
 

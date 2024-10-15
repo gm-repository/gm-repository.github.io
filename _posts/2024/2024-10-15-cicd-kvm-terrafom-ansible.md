@@ -49,11 +49,13 @@ Esse tutorial é ideal para administradores de sistemas, engenheiros de DevOps, 
 
 ---
 ### Infraestrutura/Arquitetura 
-| Serviço/Componente       | Host (IP/Hostname)         | Função                                            |
-| -----------------------  | -------------------------- | ------------------------------------------------  |
+
+| Serviço/Componente      | Host (IP/Hostname)         | Função                                            |
+| ----------------------- | -------------------------- | ------------------------------------------------ |
 | Ansible e Terraform      | 192.168.0.100              | Gerenciamento da infraestrutura e automação       |
 | KVM (Hypervisor)         | 192.168.0.250              | Host de virtualização, onde a VM será provisionada|
 | Máquina Virtual (VM)     | 192.168.122.44             | VM provisionada e gerenciada pelo KVM             |
+
 
 Aqui você encontra instruções de como instalar o KVM e o Terraform: [Instalação e Configuração: KVM e Terraform](https://geanmartins.com.br/posts/terraform-kvm/)
 

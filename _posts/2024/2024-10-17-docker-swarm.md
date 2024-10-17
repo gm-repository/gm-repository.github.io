@@ -9,13 +9,13 @@ layout: "post"
 ---
 
 ## Sumário
-- [O que é Docker Swarm](#o-que-e-docker-swarm)
+- [O que é Docker Swarm](#o-que-é-docker-swarm)
 - [Vantagens do Docker Swarm](#vantagens-do-docker-swarm)
 - [Estrutura de um Cluster Docker Swarm](#estrutura-de-um-cluster-docker-swarm)
 - [Criando um Cluster com Docker Swarm](#criando-um-cluster-com-docker-swarm)
-- [Gerenciamento de Nós no Cluster Swarm](#gerenciamento-de-nos-no-cluster-swarm)
-- [Promoção e Despromoção de Nós no Cluster](#promocao-e-despromocao-de-nos-no-cluster)
-- [Descrição dos Comandos para Gerenciamento de Nós](#descricao-dos-comandos-para-gerenciamento-de-nos)
+- [Gerenciamento de Nós no Cluster Swarm](#gerenciamento-de-nós-no-cluster-swarm)
+- [Promoção e Despromoção de Nós no Cluster](#promoção-e-despromoção-de-nós-no-cluster)
+- [Descrição dos Comandos para Gerenciamento de Nós](#descrição-dos-comandos-para-gerenciamento-de-nós)
 
 ## Orquestrando Ambientes com Docker Swarm
 

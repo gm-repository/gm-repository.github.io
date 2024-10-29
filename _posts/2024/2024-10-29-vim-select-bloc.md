@@ -9,13 +9,13 @@ summary: "Aprenda a usar o modo de seleção por bloco no Vim para edições rá
 
 ### **Sumário**
 
-- [Introdução ao Modo de Seleção por Bloco no Vim](#introducao-ao-modo-de-selecao-por-bloco-no-vim)
-- [O Que é o Modo de Seleção por Bloco?](#o-que-e-o-modo-de-selecao-por-bloco)
-- [Usos Comuns e Importância do Modo de Seleção por Bloco](#usos-comuns-e-importancia-do-modo-de-selecao-por-bloco)
-- [Principais Comandos do Modo de Seleção por Bloco no Vim](#principais-comandos-do-modo-de-selecao-por-bloco-no-vim)
-- [Comandos Avançados no Modo de Seleção por Bloco](#comandos-avancados-no-modo-de-selecao-por-bloco)
+- [Introdução ao Modo de Seleção por Bloco no Vim](#introdução-ao-modo-de-seleção-por-bloco-no-vim)
+- [O Que é o Modo de Seleção por Bloco?](#o-que-é-o-modo-de-seleção-por-bloco)
+- [Usos Comuns e Importância do Modo de Seleção por Bloco](#usos-comuns-e-importância-do-modo-de-seleção-por-bloco)
+- [Principais Comandos do Modo de Seleção por Bloco no Vim](#principais-comandos-do-modo-de-seleção-por-bloco-no-vim)
+- [Comandos Avançados no Modo de Seleção por Bloco](#comandos-avançados-no-modo-de-seleção-por-bloco)
 - [Exemplo Completo de Uso](#exemplo-completo-de-uso)
-- [Conclusão](#conclusao)
+- [Conclusão](#conclusão)
 
 
 ### **Introdução ao Modo de Seleção por Bloco no Vim**

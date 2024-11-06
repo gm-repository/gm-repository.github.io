@@ -1,3 +1,4 @@
+---
 layout: post
 title: "Guia Completo do Comando `find` no Linux: Como Localizar, Filtrar e Manipular Arquivos com Eficiência"
 date: 2024-11-05 22:23:24 -0300

@@ -8,7 +8,7 @@ tags: [find, linux, shell, comandos-linux, automação]
 
 
 ## Introdução 
-   O comando `find` é uma ferramenta essencial para administradores de sistemas e usuários Linux que desejam localizar e manipular arquivos de forma eficiente. Este guia abrangente explora o comando `find` em profundidade, desde os conceitos básicos até combinações avançadas com outros comandos. Através deste tutorial, você aprenderá como utilizar `find` para realizar buscas complexas, manipular arquivos em massa e otimizar operações de sistema, com exemplos práticos e dicas de uso.
+O comando `find` é uma ferramenta essencial para administradores de sistemas e usuários Linux que desejam localizar e manipular arquivos de forma eficiente. Este guia abrangente explora o comando `find` em profundidade, desde os conceitos básicos até combinações avançadas com outros comandos. Através deste tutorial, você aprenderá como utilizar `find` para realizar buscas complexas, manipular arquivos em massa e otimizar operações de sistema, com exemplos práticos e dicas de uso.
 
 
 ## Sumário

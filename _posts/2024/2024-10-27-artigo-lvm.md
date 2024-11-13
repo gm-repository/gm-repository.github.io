@@ -416,3 +416,4 @@ A configuração do LVM deve seguir boas práticas de segurança:
 O uso do **Logical Volume Manager (LVM)** em ambientes KVM traz uma série de benefícios em termos de flexibilidade e eficiência no gerenciamento de armazenamento. Neste artigo, abordamos desde a criação e configuração básica de volumes lógicos até operações avançadas, como **snapshots**, **espelhamento** e **provisionamento dinâmico**, oferecendo uma visão prática e aplicada para administradores de sistemas e engenheiros de infraestrutura.
 
 Ao seguir as práticas recomendadas aqui detalhadas, administradores podem não só melhorar o desempenho e disponibilidade dos recursos de armazenamento, mas também estabelecer uma política de gerenciamento eficiente e segura. O LVM, aliado ao poder de virtualização do KVM e à automação do Terraform, possibilita uma infraestrutura ágil e responsiva, adaptando-se rapidamente às demandas do ambiente corporativo.
+

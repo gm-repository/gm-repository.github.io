@@ -60,9 +60,6 @@ timezone America/Sao_Paulo --utc
 # Configuração de rede via DHCP
 network --bootproto dhcp
 
-# Criação de usuário administrador com sudo
-user --name=gean --password=gean --groups=wheel --plaintext
-
 # Senha do root
 rootpw --plaintext root
 
@@ -78,11 +75,24 @@ cloud-init
 %end
 
 # Script pós-instalação para otimizar a imagem
+
 %post
-# Remover pacotes desnecessários
-yum remove -y NetworkManager firewalld chrony
-# Limpar temporários
+# Limpar o cache do dnf
+dnf clean all
+
+# Limpar arquivos temporários
 rm -rf /tmp/* /var/tmp/*
+
+# Limpar logs do sistema
+rm -rf /var/log/* /var/log/journal/*
+
+# Limpar cache do usuário root
+rm -rf /root/.cache/*
+
+# Zerar espaço não utilizado para melhor compactação (opcional)
+dd if=/dev/zero of=/zerofile bs=1M || :
+rm -f /zerofile
+
 %end
 
 # Reiniciar após a instalação
@@ -141,7 +151,29 @@ Como os pacotes **NetworkManager**, **firewalld** e **chrony** podem ter depend�
 
 ## Parte 2: Otimização e Compressão da Imagem Base
 
-### 4. Otimização da Imagem com QEMU e Virt-Sparsify
+### 4. Generalização e Preparação da Imagem para Reuso
+
+Agora que temos uma imagem otimizada, o próximo passo é prepará-la para uso como um template reutilizável. Para isso, precisamos remover dados específicos da VM (como chaves SSH, logs e UUIDs de rede) e garantir que a imagem possa ser personalizada dinamicamente com **cloud-init**.
+
+#### Usando o Virt-Sysprep
+
+O **virt-sysprep** é uma ferramenta que facilita a generalização de uma imagem de VM, removendo informações específicas que não devem ser replicadas em novas instâncias.
+
+#### Comando para Generalização:
+
+```bash
+sudo virt-sysprep --domain ol9-tpl --operations user-account,ssh-hostkeys,logfiles,tmp-files,net-hwaddr,bash-history
+```
+
+- **Explicação**:
+  - **`user-account`**: Remove contas de usuário criadas, exceto o root.
+  - **`ssh-hostkeys`**: Remove as chaves SSH geradas pela máquina, garantindo que novas chaves sejam criadas ao inicializar novas VMs.
+  - **`logfiles`**: Limpa os arquivos de log para remover registros de instalação.
+  - **`tmp-files`**: Remove arquivos temporários para garantir que a imagem esteja limpa.
+  - **`net-hwaddr`**: Remove os endereços MAC específicos da VM, permitindo que novas VMs gerem suas próprias configurações de rede.
+  - **`bash-history`**: Limpa o histórico do shell para garantir que não haja rastros de comandos anteriores.
+  
+### 5. Otimização da Imagem com QEMU e Virt-Sparsify
 
 Após a criação da imagem com o **virt-install**, ela pode conter blocos de disco que não estão sendo utilizados, o que aumenta o tamanho da imagem desnecessariamente. Usaremos as ferramentas **`qemu-img`** e **`virt-sparsify`** para reduzir o tamanho da imagem final e garantir que ela esteja otimizada para uso.
 
@@ -191,31 +223,6 @@ Após a criação da imagem com o **virt-install**, ela pode conter blocos de di
    ```
 
    - **Explicação**: Este passo organiza a imagem compactada no diretório correto, onde poderá ser reutilizada repetidamente para criar novas VMs a partir de um template otimizado.
-
----
-
-### 5. Generalização e Preparação da Imagem para Reuso
-
-Agora que temos uma imagem otimizada, o próximo passo é prepará-la para uso como um template reutilizável. Para isso, precisamos remover dados específicos da VM (como chaves SSH, logs e UUIDs de rede) e garantir que a imagem possa ser personalizada dinamicamente com **cloud-init**.
-
-#### Usando o Virt-Sysprep
-
-O **virt-sysprep** é uma ferramenta que facilita a generalização de uma imagem de VM, removendo informações específicas que não devem ser replicadas em novas instâncias.
-
-#### Comando para Generalização:
-
-```bash
-sudo virt-sysprep --domain ol9-tpl --operations user-account,ssh-hostkeys,logfiles,tmp-files,net-hwaddr,bash-history
-```
-
-- **Explicação**:
-  - **`user-account`**: Remove contas de usuário criadas, exceto o root.
-  - **`ssh-hostkeys`**: Remove as chaves SSH geradas pela máquina, garantindo que novas chaves sejam criadas ao inicializar novas VMs.
-  - **`logfiles`**: Limpa os arquivos de log para remover registros de instalação.
-  - **`tmp-files`**: Remove arquivos temporários para garantir que a imagem esteja limpa.
-  - **`net-hwaddr`**: Remove os endereços MAC específicos da VM, permitindo que novas VMs gerem suas próprias configurações de rede.
-  - **`bash-history`**: Limpa o histórico do shell para garantir que não haja rastros de comandos anteriores.
-
 
 ---
 
@@ -464,3 +471,4 @@ Neste tutorial, você aprendeu a criar uma imagem base minimalista usando **Kick
 Com a integração do **cloud-init**, suas VMs podem ser configuradas dinamicamente durante o processo de inicialização, permitindo a personalização de configurações como rede, SSH, hostname, e mais. A criação e gestão de VMs via **Terraform** e **Libvirt** garante que toda a infraestrutura seja escalável e alinhada com as melhores práticas de automação.
 
 Agora, você possui um pipeline completo para criação e validação de imagens otimizadas, prontas para replicação e uso em ambientes de produção com **KVM**, **Terraform** e **cloud-init**, economizando tempo e recursos em cada novo deployment de VMs.
+

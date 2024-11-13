@@ -229,9 +229,7 @@ chmod [operação][permissão][usuário] arquivo
 1. **Adicionar Permissões para o Usuário**:
    - Crie um novo arquivo e conceda permissões de leitura e escrita apenas para o usuário:
      ```bash
-     touch meu_
-
-arquivo.txt
+     touch meu_arquivo.txt
      chmod u=rw meu_arquivo.txt
      ```
 

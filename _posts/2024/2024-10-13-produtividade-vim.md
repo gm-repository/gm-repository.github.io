@@ -807,3 +807,4 @@ Aqui está um resumo rápido do que cobrimos:
 9. **Personalização de snippets** para automatizar trechos de código repetidos.
 
 Com essas dicas e ajustes, você terá o Vim completamente otimizado para suas atividades no dia a dia.
+

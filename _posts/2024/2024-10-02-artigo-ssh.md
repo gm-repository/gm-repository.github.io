@@ -961,3 +961,4 @@ Aqui estão algumas boas práticas para evitar problemas comuns e garantir que o
 #### Conclusão da Parte 8:
 
 A resolução de problemas no SSH pode ser complexa, mas com uma abordagem metódica e a compreensão das causas comuns, é possível solucionar a maioria dos erros encontrados. Garantir que as permissões estejam corretas, monitorar os logs e seguir boas práticas de segurança, como o uso de autenticação por chave pública e a desativação do login por senha, pode prevenir muitos desses problemas.
+

@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Guia Completo de Playbooks no Ansible: Estrutura, Práticas e Automação Avançada"
-date: 2024-11-12
+date: 2024-11-12 12:13:14 -0300
 categories: [DevOps, Ansible, Automação]
 tags: [Ansible, Playbooks, Automação, DevOps]
-author: "TechScribe GM"
+excerpt: "Aprenda a criar playbooks robustos e gerenciar ambientes de TI de forma eficiente, escalável e segura, dominando as melhores práticas para o uso do Ansible."
 ---
 
 ### Introdução
@@ -68,6 +68,7 @@ Apresentar o conceito de playbooks no Ansible, destacando sua importância na au
 4. **Estrutura Básica de um Playbook**
    - Cada playbook pode conter um ou mais *plays*. Um *play* define quais hosts serão configurados e lista as tarefas que devem ser executadas.
    - Exemplo de estrutura básica de um playbook:
+
      ```yaml
      ---
      - name: Configurar um servidor web
@@ -79,6 +80,7 @@ Apresentar o conceito de playbooks no Ansible, destacando sua importância na au
              name: nginx
              state: present
      ```
+
      - **`name`**: Descrição amigável do play, útil para entender o propósito da configuração.
      - **`hosts`**: Define em quais hosts o play será executado, como "webservers" (um grupo de servidores definidos no inventário).
      - **`become`**: Eleva privilégios (equivalente ao sudo), necessário para instalar pacotes e realizar configurações de sistema.
@@ -109,8 +111,8 @@ Explorar a estrutura básica e a sintaxe de um playbook no Ansible, abordando as
 1. **Estrutura YAML e Convenções no Ansible**
    - Playbooks são escritos em YAML (Yet Another Markup Language), um formato que usa listas e pares chave-valor. YAML é escolhido pela sua simplicidade e legibilidade.
    - O uso correto de **indentação** é crucial. Em YAML, cada nível hierárquico é definido pela indentação, e um erro de indentação causará falhas na execução do playbook.
-
    - Exemplo de um bloco YAML básico:
+
      ```yaml
      ---
      - hosts: all
@@ -120,6 +122,7 @@ Explorar a estrutura básica e a sintaxe de um playbook no Ansible, abordando as
              name: nginx
              state: present
      ```
+
      Aqui, o playbook começa com `---`, o que indica o início do arquivo. Em seguida, cada chave (`hosts`, `tasks`, `name`, `apt`) é indentada adequadamente.
 
 2. **Componentes Principais de um Playbook**
@@ -146,19 +149,19 @@ Explorar a estrutura básica e a sintaxe de um playbook no Ansible, abordando as
      tasks:
        - name: Instalar pacote web
          apt:
-           name: "{{ pacote_web }}"
+           name: "{% raw %}{{ pacote_web }}{% endraw %}"
            state: present
          tags: instalação
 
        - name: Ativar e iniciar o serviço
          systemd:
-           name: "{{ pacote_web }}"
+           name: "{% raw %}{{ pacote_web }}{% endraw %}"
            state: started
            enabled: true
          tags: configuração
 
        - name: Verificar status do serviço
-         command: systemctl status {{ pacote_web }}
+         command: systemctl status {% raw %}{{ pacote_web }}{% endraw %}
          register: resultado
          tags: verificação
 
@@ -173,7 +176,7 @@ Explorar a estrutura básica e a sintaxe de um playbook no Ansible, abordando as
    - **`become: true`**: Permite elevar privilégios durante a execução das tarefas, útil para ações que exigem permissões de superusuário.
    - **`vars`**: Definimos uma variável `pacote_web`, que armazena o nome do pacote que queremos instalar.
    - **`tasks`**:
-     - A tarefa `Instalar pacote web` usa o módulo `apt` para instalar o pacote Nginx. A variável `{{ pacote_web }}` torna o playbook dinâmico, facilitando a reutilização para instalar outros pacotes.
+     - A tarefa `Instalar pacote web` usa o módulo `apt` para instalar o pacote Nginx. A variável `{% raw %}{{ pacote_web }}{% endraw %}` torna o playbook dinâmico, facilitando a reutilização para instalar outros pacotes.
      - A tarefa `Ativar e iniciar o serviço` utiliza o módulo `systemd` para garantir que o serviço esteja rodando e configurado para iniciar automaticamente no boot.
      - A tarefa `Verificar status do serviço` executa o comando `systemctl status` e registra o resultado em uma variável `resultado`.
      - A tarefa `Exibir resultado` utiliza o módulo `debug` para exibir o conteúdo da variável `resultado`.
@@ -214,6 +217,7 @@ Demonstrar como definir tarefas no Ansible para execução sequencial e modulari
      - **Parâmetros do módulo**: Configurações necessárias para a execução da tarefa.
 
    - Exemplo de uma lista de tarefas:
+
      ```yaml
      tasks:
        - name: Instalar o pacote nginx
@@ -227,6 +231,7 @@ Demonstrar como definir tarefas no Ansible para execução sequencial e modulari
            state: started
            enabled: true
      ```
+
      Nesse exemplo:
      - A primeira tarefa instala o pacote `nginx` usando o módulo `apt`.
      - A segunda tarefa garante que o serviço `nginx` esteja ativo e configurado para iniciar automaticamente.
@@ -236,6 +241,7 @@ Demonstrar como definir tarefas no Ansible para execução sequencial e modulari
    - Esse conceito é útil para operações que devem ocorrer apenas após uma mudança específica, como reiniciar um serviço quando um arquivo de configuração é alterado.
 
    - Um exemplo de handler para reiniciar o Nginx:
+
      ```yaml
      tasks:
        - name: Configurar o arquivo de configuração
@@ -250,6 +256,7 @@ Demonstrar como definir tarefas no Ansible para execução sequencial e modulari
            name: nginx
            state: restarted
      ```
+
    - **Explicação**:
      - A tarefa `Configurar o arquivo de configuração` usa o módulo `template` para copiar um arquivo de configuração para o diretório `/etc/nginx/`.
      - A opção `notify: Reiniciar Nginx` chama o handler `Reiniciar Nginx` quando a tarefa faz uma alteração no arquivo de configuração.
@@ -326,6 +333,7 @@ Explicar como definir e utilizar variáveis para tornar os playbooks dinâmicos 
 2. **Declaração de Variáveis no Playbook (`vars`)**
    - No nível do playbook, variáveis podem ser definidas usando a diretiva `vars`, o que facilita o acesso e a modificação das mesmas.
    - Exemplo de declaração de variáveis no próprio playbook:
+
      ```yaml
      ---
      - name: Configurar servidor web com porta customizável
@@ -339,14 +347,14 @@ Explicar como definir e utilizar variáveis para tornar os playbooks dinâmicos 
        tasks:
          - name: Instalar o pacote web
            apt:
-             name: "{{ pacote_web }}"
+             name: "{% raw %}{{ pacote_web }}{% endraw %}"
              state: present
 
          - name: Configurar a porta do serviço
            lineinfile:
              path: /etc/nginx/sites-enabled/default
              regexp: 'listen'
-             line: "listen {{ porta_web }};"
+             line: "listen {% raw %}{{ porta_web }}{% endraw %};"
              state: present
            notify: Reiniciar Nginx
      ```
@@ -371,12 +379,14 @@ Explicar como definir e utilizar variáveis para tornar os playbooks dinâmicos 
 4. **Uso de Variáveis em Arquivos Externos**
    - Variáveis também podem ser organizadas em arquivos YAML separados, o que é útil para centralizar a configuração e evitar duplicação de variáveis em playbooks.
    - Exemplo de arquivo de variáveis (`vars.yml`):
+
      ```yaml
      pacote_web: nginx
      porta_web: 8080
      ```
 
    - No playbook, o arquivo é incluído usando `vars_files`:
+
      ```yaml
      ---
      - name: Configurar servidor web com variáveis externas
@@ -389,13 +399,13 @@ Explicar como definir e utilizar variáveis para tornar os playbooks dinâmicos 
        tasks:
          - name: Instalar o pacote web
            apt:
-             name: "{{ pacote_web }}"
+             name: "{% raw %}{{ pacote_web }}{% endraw %}"
              state: present
          - name: Configurar a porta do serviço
            lineinfile:
              path: /etc/nginx/sites-enabled/default
              regexp: 'listen'
-             line: "listen {{ porta_web }};"
+             line: "listen {% raw %}{{ porta_web }}{% endraw %};"
            notify: Reiniciar Nginx
      ```
 
@@ -432,14 +442,14 @@ Explicar como definir e utilizar variáveis para tornar os playbooks dinâmicos 
      tasks:
        - name: Instalar pacote web
          apt:
-           name: "{{ pacote_web }}"
+           name: "{% raw %}{{ pacote_web }}{% endraw %}"
            state: present
 
        - name: Configurar a porta do serviço
          lineinfile:
-           path: "{{ arquivo_config }}"
+           path: "{% raw %}{{ arquivo_config }}{% endraw %}"
            regexp: 'listen'
-           line: "listen {{ porta_web }};"
+           line: "listen {% raw %}{{ porta_web }}{% endraw %};"
          notify: Reiniciar Nginx
      
      handlers:
@@ -469,30 +479,33 @@ Demonstrar como executar tarefas repetitivas usando loops no Ansible para simpli
 2. **Loops com `loop`**
    - O Ansible recomenda o uso de `loop`, que é mais versátil e substitui as sintaxes anteriores (`with_items`, `with_dict`).
    - Exemplo de loop para instalar múltiplos pacotes:
+
      ```yaml
      tasks:
        - name: Instalar pacotes necessários
          apt:
-           name: "{{ item }}"
+           name: "{% raw %}{{ item }}{% endraw %}"
            state: present
          loop:
            - nginx
            - git
            - curl
      ```
-     - Aqui, o Ansible repetirá a tarefa de instalação para cada pacote listado em `loop`, substituindo `{{ item }}` pelo nome do pacote em cada iteração.
+
+     - Aqui, o Ansible repetirá a tarefa de instalação para cada pacote listado em `loop`, substituindo `{% raw %}{{ item }}{% endraw %}` pelo nome do pacote em cada iteração.
 
 3. **Loops com Dicionários (`with_dict`)**
    - Em algumas situações, é útil iterar sobre um dicionário, aplicando pares de chave-valor.
    - Exemplo de loop usando um dicionário para configurar usuários com senhas:
+
      ```yaml
      tasks:
        - name: Criar usuários com senhas específicas
          user:
-           name: "{{ item.key }}"
-           password: "{{ item.value }}"
+           name: "{% raw %}{{ item.key }}{% endraw %}"
+           password: "{% raw %}{{ item.value }}{% endraw %}"
            state: present
-         loop: "{{ users }}"
+         loop: "{% raw %}{{ users }}{% endraw %}"
      ```
 
      - Variáveis do tipo dicionário podem ser definidas no playbook:
@@ -506,26 +519,29 @@ Demonstrar como executar tarefas repetitivas usando loops no Ansible para simpli
 4. **Loops com Listas de Dicionários**
    - Loops também podem ser usados para executar tarefas complexas envolvendo múltiplos parâmetros.
    - Exemplo de configuração de serviços:
+
      ```yaml
      tasks:
        - name: Configurar serviços e portas
          lineinfile:
            path: /etc/services
-           line: "{{ item.name }} {{ item.port }}/tcp"
+           line: "{% raw %}{{ item.name }}{% endraw %} {% raw %}{{ item.port }}{% endraw %}/tcp"
          loop:
            - { name: 'web_service', port: '8080' }
            - { name: 'db_service', port: '5432' }
      ```
+
      - Aqui, cada item no loop é um dicionário, permitindo múltiplos parâmetros para a tarefa `lineinfile`.
 
 5. **Controle de Fluxo em Loops**
    - **`loop_control`** permite ajustar como o loop se comporta, como por exemplo definir variáveis de loop personalizadas.
    - Exemplo com `loop_control` para renomear a variável padrão `item`:
+
      ```yaml
      tasks:
        - name: Instalar pacotes
          apt:
-           name: "{{ pacote }}"
+           name: "{% raw %}{{ pacote }}{% endraw %}"
            state: present
          loop:
            - nginx
@@ -533,6 +549,7 @@ Demonstrar como executar tarefas repetitivas usando loops no Ansible para simpli
          loop_control:
            loop_var: pacote
      ```
+
      - `loop_var` define o nome da variável de loop (`pacote`), substituindo `item`.
 
 6. **Exemplo Completo com Loops e Iterações**
@@ -556,17 +573,17 @@ Demonstrar como executar tarefas repetitivas usando loops no Ansible para simpli
        tasks:
          - name: Instalar pacotes essenciais
            apt:
-             name: "{{ item }}"
+             name: "{% raw %}{{ item }}{% endraw %}"
              state: present
-           loop: "{{ pacotes }}"
+           loop: "{% raw %}{{ pacotes }}{% endraw %}"
 
          - name: Criar usuários
            user:
-             name: "{{ item.nome }}"
-             password: "{{ item.senha }}"
-             shell: "{{ item.shell }}"
+             name: "{% raw %}{{ item.nome }}{% endraw %}"
+             password: "{% raw %}{{ item.senha }}{% endraw %}"
+             shell: "{% raw %}{{ item.shell }}{% endraw %}"
              state: present
-           loop: "{{ usuarios }}"
+           loop: "{% raw %}{{ usuarios }}{% endraw %}"
      ```
 
    **Explicação**:
@@ -579,7 +596,7 @@ Demonstrar como executar tarefas repetitivas usando loops no Ansible para simpli
 |----------------|-----------------------------------------------|-----------------------------------------------------------|
 | `loop`         | Loop simples para listas e dicionários        | `loop: ["nginx", "git", "curl"]`                          |
 | `loop_control` | Controla o comportamento do loop              | `loop_control: loop_var: "pacote"`                        |
-| `with_dict`    | Itera sobre um dicionário de chave-valor      | `with_dict: "{{ users }}"`                                |
+| `with_dict`    | Itera sobre um dicionário de chave-valor      | `with_dict: "{% raw %}{{ users }}{% endraw %}"`                                |
 | `loop` com itens complexos | Suporte a listas de dicionários   | `loop: - { nome: 'bob', senha: '123' }`                   |
 
 ---
@@ -593,69 +610,76 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
 
 1. **Introdução aos Filtros Jinja2 no Ansible**
    - O Ansible utiliza Jinja2 para manipulação e renderização de variáveis. Filtros Jinja2 permitem transformar dados, formatar strings, fazer cálculos e outras operações diretamente em variáveis.
-   - Para aplicar um filtro, basta usar o caractere `|` após uma variável seguido do nome do filtro. Exemplo: `{{ variável | filtro }}`.
+   - Para aplicar um filtro, basta usar o caractere `|` após uma variável seguido do nome do filtro. Exemplo: `{% raw %}{{ variável | filtro }}{% endraw %}`.
 
 2. **Filtros Comuns e Exemplos de Uso**
    - Aqui estão alguns dos filtros mais úteis para manipulação de variáveis no Ansible:
 
      | Filtro          | Função                                    | Exemplo de Uso                                  |
      |------------------|------------------------------------------|-------------------------------------------------|
-     | `default`       | Define um valor padrão                    | `{{ porta | default(80) }}`                     |
-     | `upper`         | Converte para maiúsculas                  | `{{ usuario | upper }}`                         |
-     | `lower`         | Converte para minúsculas                  | `{{ dominio | lower }}`                         |
-     | `replace`       | Substitui parte da string                 | `{{ caminho | replace('/old/', '/new/') }}`     |
-     | `join`          | Junta itens de uma lista com delimitador  | `{{ lista | join(', ') }}`                      |
-     | `length`        | Retorna o número de elementos de uma lista | `{{ usuarios | length }}`                       |
-     | `int`           | Converte para inteiro                     | `{{ variavel | int }}`                          |
+     | `default`       | Define um valor padrão                    | `{% raw %}{{ porta | default(80) }}{% endraw %}`                     |
+     | `upper`         | Converte para maiúsculas                  | `{% raw %}{{ usuario | upper }}{% endraw %}`                         |
+     | `lower`         | Converte para minúsculas                  | `{% raw %}{{ dominio | lower }}{% endraw %}`                         |
+     | `replace`       | Substitui parte da string                 | `{% raw %}{{ caminho | replace('/old/', '/new/') }}{% endraw %}`     |
+     | `join`          | Junta itens de uma lista com delimitador  | `{% raw %}{{ lista | join(', ') }}{% endraw %}`                      |
+     | `length`        | Retorna o número de elementos de uma lista | `{% raw %}{{ usuarios | length }}{% endraw %}`                       |
+     | `int`           | Converte para inteiro                     | `{% raw %}{{ variavel | int }}{% endraw %}`                          |
 
 3. **Exemplos Práticos de Filtros no Ansible**
 
    - **Usando `default`**:
      - Define um valor padrão caso uma variável não esteja definida.
      - Exemplo:
+
        ```yaml
        vars:
-         porta: "{{ porta | default(8080) }}"
+         porta: "{% raw %}{{ porta | default(8080) }}{% endraw %}"
        ```
        - Aqui, se `porta` não estiver definida, o Ansible utilizará `8080`.
 
    - **Usando `replace`**:
      - Substitui substrings em uma variável de string, útil para ajustar caminhos ou valores.
      - Exemplo:
+
        ```yaml
        vars:
          caminho_config: "/etc/old_folder/config"
        tasks:
          - name: Alterar caminho de configuração
            debug:
-             msg: "Novo caminho: {% raw %}{{ caminho_config | replace('/old_folder', '/new_folder') }}{% endraw %}"
+             msg: "Novo caminho: {% raw %}{% raw %}{{ caminho_config | replace('/old_folder', '/new_folder') }}{% endraw %}{% endraw %}"
        ```
+
        - Esse filtro mudará `"/etc/old_folder/config"` para `"/etc/new_folder/config"`.
 
    - **Convertendo para Maiúsculas ou Minúsculas (`upper` e `lower`)**:
      - Útil para padronizar valores de variáveis.
      - Exemplo:
+
        ```yaml
        vars:
          dominio: "Exemplo.Com"
        tasks:
          - name: Converter domínio para minúsculas
            debug:
-             msg: "Domínio: {% raw %}{{ dominio | lower }}{% endraw %}"
+             msg: "Domínio: {% raw %}{% raw %}{{ dominio | lower }}{% endraw %}{% endraw %}"
        ```
+
        - Resultado: `"exemplo.com"`.
 
    - **Usando `join` para Listas**:
      - Junta elementos de uma lista em uma única string, com um delimitador específico.
      - Exemplo:
+
        ```yaml
        vars:
          pacotes: ["nginx", "git", "curl"]
        tasks:
          - name: Exibir pacotes instalados
            debug:
-             msg: "Pacotes: {% raw %}{{ pacotes | join(', ') }}{% endraw %}"
+             msg: "Pacotes: {% raw %}{% raw %}{{ pacotes | join(', ') }}{% endraw %}{% endraw %}"
        ```
+
        - Resultado: `"Pacotes: nginx, git, curl"`.
 
 4. **Filtros para Manipulação de Dados Complexos**
@@ -663,6 +687,7 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
    - **Filtrar Itens de uma Lista ou Dicionário com `selectattr` e `rejectattr`**:
      - Esses filtros ajudam a selecionar ou rejeitar itens em listas de dicionários.
      - Exemplo:
+
        ```yaml
        vars:
          usuarios:
@@ -673,8 +698,9 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
        tasks:
          - name: Selecionar usuários ativos
            debug:
-             msg: "{% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}"
+             msg: "{% raw %}{% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}{% endraw %}"
        ```
+
        - Esse filtro retorna apenas os nomes dos usuários que têm `ativo: true`, no caso `"Alice"`.
 
 5. **Exemplo Completo de Playbook com Filtros**
@@ -689,7 +715,7 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
 
      vars:
        dominio: "EXEMPLO.COM"
-       porta: "{% raw %}{{ porta | default(8080) }}{% endraw %}"
+       porta: "{% raw %}{% raw %}{{ porta | default(8080) }}{% endraw %}{% endraw %}"
        pacotes:
          - nginx
          - git
@@ -701,15 +727,15 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
      tasks:
        - name: Converter domínio para minúsculas
          debug:
-           msg: "Domínio formatado: {% raw %}{{ dominio | lower }}{% endraw %}"
+           msg: "Domínio formatado: {% raw %}{% raw %}{{ dominio | lower }}{% endraw %}{% endraw %}"
 
        - name: Exibir pacotes instalados
          debug:
-           msg: "Pacotes: {% raw %}{{ pacotes | join(', ') }}{% endraw %}"
+           msg: "Pacotes: {% raw %}{% raw %}{{ pacotes | join(', ') }}{% endraw %}{% endraw %}"
 
        - name: Selecionar e exibir usuários ativos
          debug:
-           msg: "Usuários ativos: {% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}"
+           msg: "Usuários ativos: {% raw %}{% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}{% endraw %}"
    ```
 
    **Explicação**:
@@ -733,6 +759,7 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
 2. **Sintaxe Básica de `when`**
    - O `when` é adicionado dentro de uma tarefa, após a definição do módulo e seus parâmetros.
    - Exemplo de uso básico:
+
      ```yaml
      tasks:
        - name: Instalar Nginx no Debian
@@ -741,12 +768,14 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
            state: present
          when: ansible_os_family == "Debian"
      ```
+
      - Neste exemplo, a tarefa de instalação do Nginx só será executada se o sistema operacional da máquina-alvo pertencer à família Debian (Debian, Ubuntu, etc.).
 
 3. **Usando Variáveis e Condicionais Múltiplas**
    - As condições podem usar variáveis do inventário ou definidas diretamente no playbook.
    - Para múltiplas condições, o Ansible usa `and`, `or`, e parênteses `()` para combinações mais complexas.
    - Exemplo com múltiplas condições:
+
      ```yaml
      tasks:
        - name: Reiniciar serviço se for CentOS e a porta estiver definida
@@ -759,6 +788,7 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
 4. **Utilizando Fatos do Ansible com Condicionais**
    - O Ansible coleta automaticamente várias informações sobre o sistema-alvo, conhecidas como *fatos*, que podem ser usadas nas condições.
    - Exemplo:
+
      ```yaml
      tasks:
        - name: Configurar firewall no Ubuntu
@@ -767,11 +797,13 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
            port: 22
          when: ansible_distribution == "Ubuntu"
      ```
+
      - Neste caso, a configuração do firewall só será aplicada se o sistema for Ubuntu.
 
 5. **Exemplos de Condicionais Comuns**
 
    - **Exemplo de controle de execução baseado em versões do sistema operacional**:
+
      ```yaml
      tasks:
        - name: Instalar Apache em sistemas Debian 10 ou superior
@@ -780,9 +812,11 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
            state: present
          when: (ansible_os_family == "Debian") and (ansible_distribution_version is version("10", ">="))
      ```
+
      - Esse exemplo instala o Apache apenas em sistemas Debian de versão 10 ou superior.
 
    - **Exemplo de controle de execução com variáveis definidas pelo usuário**:
+
      ```yaml
      vars:
        habilitar_backup: true
@@ -791,11 +825,13 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
          command: /usr/local/bin/configurar_backup.sh
          when: habilitar_backup
      ```
+
      - A tarefa de configurar o backup só será executada se `habilitar_backup` for `true`.
 
 6. **Combinações de Condicionais e Filtros**
    - É possível aplicar filtros nas variáveis dentro do `when` para transformar os valores antes da verificação.
    - Exemplo:
+
      ```yaml
      vars:
        lista_servicos: ["nginx", "apache2"]
@@ -806,6 +842,7 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
            state: restarted
          when: "'apache2' in lista_servicos"
      ```
+
      - Esse exemplo verifica se o serviço `apache2` está na lista e o reinicia apenas se a condição for verdadeira.
 
 7. **Exemplo Completo de Playbook com Condicionais**
@@ -826,19 +863,19 @@ Demonstrar como usar condicionais (`when`) para controlar a execução de tarefa
      tasks:
        - name: Instalar pacote web no Debian
          apt:
-           name: "{{ pacote_web }}"
+           name: "{% raw %}{{ pacote_web }}{% endraw %}"
            state: present
          when: ansible_os_family == "Debian"
 
        - name: Instalar pacote web no CentOS
          yum:
-           name: "{{ pacote_web }}"
+           name: "{% raw %}{{ pacote_web }}{% endraw %}"
            state: present
          when: ansible_os_family == "RedHat"
 
        - name: Configurar firewall se habilitado
          firewalld:
-           port: "{{ porta }}/tcp"
+           port: "{% raw %}{{ porta }}{% endraw %}/tcp"
            permanent: yes
            state: enabled
          when: habilitar_firewall and (ansible_os_family == "RedHat")
@@ -875,6 +912,7 @@ Explicar como usar blocos (`block`) para agrupar tarefas e aplicar controle de e
 2. **Estrutura Básica de um Bloco**
    - Um bloco consiste em uma lista de tarefas agrupadas dentro de uma seção `block`. As seções opcionais `rescue` e `always` podem ser adicionadas para gerenciar o tratamento de erros e execução incondicional de tarefas.
    - Estrutura básica:
+
      ```yaml
      tasks:
        - block:
@@ -888,6 +926,7 @@ Explicar como usar blocos (`block`) para agrupar tarefas e aplicar controle de e
 3. **Exemplo de Bloco com Controle de Erro**
    - Neste exemplo, um bloco tenta instalar um pacote. Se falhar, o Ansible executa o bloco `rescue`, que tenta instalar uma versão alternativa do pacote. Em `always`, exibe uma mensagem de status final.
    - Exemplo:
+
      ```yaml
      tasks:
        - name: Tentativa de instalação de um pacote com controle de erro
@@ -918,6 +957,7 @@ Explicar como usar blocos (`block`) para agrupar tarefas e aplicar controle de e
 4. **Uso de Condicionais e Controle de Erro em Blocos**
    - Assim como nas tarefas individuais, blocos podem incluir condicionais para controlar a execução com base em variáveis ou fatos do sistema.
    - Exemplo:
+
      ```yaml
      tasks:
        - name: Configuração condicional com controle de erro
@@ -936,12 +976,14 @@ Explicar como usar blocos (`block`) para agrupar tarefas e aplicar controle de e
                msg: "Falha ao configurar o firewall. Verifique as permissões."
          when: ansible_os_family == "RedHat"
      ```
+
    - **Explicação**:
      - Neste exemplo, o bloco executa a configuração e reinício do firewall apenas em sistemas RedHat. Se houver erro, a mensagem de erro é exibida na seção `rescue`.
 
 5. **Bloco `always` para Tarefas Obrigatórias**
    - A seção `always` é útil para definir tarefas que devem ser executadas independentemente do resultado das tarefas anteriores, como limpezas de arquivos temporários ou notificações de status.
    - Exemplo:
+
      ```yaml
      tasks:
        - name: Operação de backup com limpeza final
@@ -958,6 +1000,7 @@ Explicar como usar blocos (`block`) para agrupar tarefas e aplicar controle de e
                path: /tmp/backup_temp
                state: absent
      ```
+
    - **Explicação**:
      - Aqui, o script de backup é executado dentro do `block`. Se houver falha, a mensagem de erro é exibida, mas a tarefa de limpeza dos arquivos temporários em `always` será executada de qualquer maneira.
 
@@ -1056,6 +1099,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
      ```
 
    - **Conteúdo de `site.yml`** (Playbook Principal):
+
      ```yaml
      ---
      - name: Configuração completa do servidor
@@ -1068,6 +1112,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
      ```
 
    - **Conteúdo de `tasks/config_nginx.yml`**:
+
      ```yaml
      - name: Instalar Nginx
        apt:
@@ -1086,6 +1131,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
      ```
 
    - **Conteúdo de `tasks/config_database.yml`**:
+
      ```yaml
      - name: Instalar MySQL
        apt:
@@ -1107,6 +1153,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
 
    - `include_tasks` é ideal para incluir tarefas de forma condicional, o que permite controle de execução em tempo real.
    - Exemplo de uso com `include_tasks`:
+
      ```yaml
      tasks:
        - name: Configurar o Nginx apenas se o sistema for Debian
@@ -1117,6 +1164,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
          include_tasks: tasks/config_database.yml
          when: ansible_os_family == "RedHat"
      ```
+
    - **Explicação**:
      - Aqui, o Ansible incluirá e executará as tarefas de configuração do Nginx somente em sistemas Debian, e as de MySQL apenas em sistemas RedHat. A inclusão condicional permite controle avançado de execução.
 
@@ -1124,6 +1172,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
 
    - Tanto `import_tasks` quanto `include_tasks` permitem a passagem de variáveis para os arquivos de tarefas. Isso é útil para adaptar os arquivos de tarefas a diferentes contextos.
    - Exemplo:
+
      ```yaml
      tasks:
        - name: Configurar Nginx com porta especificada
@@ -1131,14 +1180,17 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
          vars:
            porta: 8080
      ```
+
    - **No arquivo `tasks/config_nginx.yml`**:
+
      ```yaml
      - name: Configurar Nginx para escutar na porta especificada
        lineinfile:
          path: /etc/nginx/sites-enabled/default
          regexp: 'listen'
-         line: "listen {{ porta }};"
+         line: "listen {% raw %}{{ porta }}{% endraw %};"
      ```
+
    - **Explicação**:
      - A variável `porta` é passada para o arquivo `config_nginx.yml`, permitindo que o playbook configure o Nginx com o valor especificado.
 
@@ -1153,6 +1205,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
      ```
 
    - **Conteúdo de `site.yml`**:
+
      ```yaml
      ---
      - name: Configuração completa de infraestrutura
@@ -1169,6 +1222,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
      ```
 
    - **Conteúdo de `tasks/setup_web.yml`**:
+
      ```yaml
      - name: Instalar pacote Nginx
        apt:
@@ -1187,6 +1241,7 @@ Demonstrar como modularizar tarefas em playbooks do Ansible utilizando `include`
      ```
 
    - **Conteúdo de `tasks/setup_db.yml`**:
+
      ```yaml
      - name: Instalar pacote MySQL
        apt:
@@ -1262,6 +1317,7 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
      ```
 
    - **Conteúdo do Arquivo `tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Instalar Nginx
@@ -1283,6 +1339,7 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
      ```
 
    - **Conteúdo do Arquivo `handlers/main.yml`**:
+
      ```yaml
      ---
      - name: Reiniciar Nginx
@@ -1292,10 +1349,11 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
      ```
 
    - **Conteúdo do Template `templates/nginx.conf.j2`**:
+
      ```nginx
      server {
-         listen {{ porta }};
-         server_name {{ dominio }};
+         listen {% raw %}{{ porta }}{% endraw %};
+         server_name {% raw %}{{ dominio }}{% endraw %};
          location / {
              root /var/www/html;
              index index.html index.htm;
@@ -1304,6 +1362,7 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
      ```
 
    - **Conteúdo do Arquivo de Variáveis `vars/main.yml`**:
+
      ```yaml
      ---
      porta: 80
@@ -1317,6 +1376,7 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
 4. **Usando a Role em um Playbook**
    - Para usar uma role em um playbook, você simplesmente a lista na seção `roles` de um play. É possível passar variáveis para personalizar a configuração.
    - Exemplo de playbook que usa a role `webserver`:
+
      ```yaml
      ---
      - name: Configuração de servidores web
@@ -1328,12 +1388,14 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
              porta: 8080
              dominio: "meusite.com"
      ```
+
    - **Explicação**:
      - O playbook aplica a role `webserver` nos hosts do grupo `webservers`. As variáveis `porta` e `dominio` são sobrescritas com valores específicos para este playbook, configurando o servidor web conforme necessário.
 
 5. **Definindo Dependências entre Roles**
    - Roles podem depender de outras roles, o que é útil para configurar ambientes complexos. Dependências são definidas no arquivo `meta/main.yml` de uma role.
    - Exemplo de `meta/main.yml` para a role `webserver`, que depende da role `firewall`:
+
      ```yaml
      ---
      dependencies:
@@ -1342,6 +1404,7 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
            porta_http: 80
            porta_https: 443
      ```
+
    - **Explicação**:
      - Antes de aplicar a configuração do servidor web, a role `firewall` é aplicada para garantir que as portas HTTP e HTTPS estejam liberadas.
 
@@ -1362,6 +1425,7 @@ Explicar como organizar e reutilizar playbooks complexos usando roles no Ansible
      ```
 
    - **Conteúdo do Arquivo `site.yml`**:
+
      ```yaml
      ---
      - name: Configuração completa de servidores

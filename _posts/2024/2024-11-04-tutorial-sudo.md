@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Guia Completo de Permissões com `sudo`, `su` e Configuração do `sudoers`"
-date: 2023-11-04 09:10:11 -0300
+date: 2024-11-04 09:10:11 -0300
 categories: [Administração de Sistemas, Linux, Segurança]
 tags: [sudo, su, sudoers, segurança, permissões, unix]
 description: "Este guia oferece uma visão abrangente sobre o uso de `sudo` e `su`, além de uma configuração segura e detalhada do arquivo `sudoers`."
@@ -72,7 +72,8 @@ sudo visudo
 - **Validação de Sintaxe**: O `visudo` impede que erros de sintaxe sejam salvos, protegendo o arquivo de configurações incorretas que poderiam bloquear o acesso ao `sudo`.
 - **Bloqueio de Arquivo**: Apenas uma instância de `visudo` pode editar o arquivo `sudoers` por vez, evitando conflitos entre edições simultâneas.
 
-> **Dica**: Ao usar o `visudo`, você pode configurar o editor padrão com o comando `export EDITOR=nano`, substituindo `nano` pelo editor de sua preferência.
+> **Dica**: Ao usar o `visudo`, você pode configurar o editor padrão com o comando `export EDITOR=vim`, substituindo `vim` pelo editor de sua preferência.
+{: .prompt-tip }
 
 #### Estrutura Básica de Entrada no Arquivo `sudoers`
 
@@ -168,7 +169,8 @@ Host_Alias DEV_SERVERS = dev01, dev02
 Host_Alias TEST_SERVERS = test01, test02
 ```
 
-> **Nota**: É recomendável usar nomes de alias que reflitam claramente o propósito dos servidores, como `PROD_SERVERS`, `DEV_SERVERS` ou `TEST_SERVERS`, para manter o arquivo organizado e intuitivo.
+> Aviso! É recomendável usar nomes de alias que reflitam claramente o propósito dos servidores, como `PROD_SERVERS`, `DEV_SERVERS` ou `TEST_SERVERS`, para manter o arquivo organizado e intuitivo.
+{: .prompt-warning }
 
 #### Utilizando `Host_Alias` em Configurações de Permissão
 

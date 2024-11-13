@@ -32,6 +32,7 @@ Containers, por natureza, são menos isolados que máquinas virtuais, o que sign
 14. [Backup e Recuperação Segura no Docker e Docker Swarm](#14-backup-e-recuperação-segura-no-docker-e-docker-swarm)
 15. [Práticas Avançadas de Segurança e Ferramentas Complementares](#15-práticas-avançadas-de-segurança-e-ferramentas-complementares)
 16. [Gerenciamento e Limitação de Recursos para Segurança](#16-gerenciamento-e-limitação-de-recursos-para-segurança)
+
 ---
 
 # **1. Introdução à Segurança em Containers**
@@ -2472,7 +2473,7 @@ Limitar recursos em containers Docker e Docker Swarm é essencial para proteger 
 
 ---
 
-### **Conclusão**
+### **Conclusão Geral**
 
 Com a popularização do uso de containers, garantir a segurança em ambientes Docker e Docker Swarm tornou-se uma prioridade para as equipes de desenvolvimento e operações. Ao longo deste guia, foram exploradas diversas práticas e configurações que cobrem desde a construção de imagens seguras até o controle de acesso, monitoramento e recuperação em caso de incidentes. A implementação dessas práticas proporciona uma camada extra de proteção e contribui para a continuidade dos serviços em caso de falhas ou ataques.
 

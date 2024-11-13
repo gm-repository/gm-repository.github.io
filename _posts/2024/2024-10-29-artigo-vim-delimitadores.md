@@ -249,3 +249,4 @@ Esta tabela resume os comandos apresentados para manipulação de texto entre de
 ### **Conclusão**
 
 Esta tabela resumo dos comandos oferece uma visão abrangente para consulta rápida, cobrindo os principais comandos e funções para manipulação de delimitadores no Vim. Com o domínio desses comandos, você terá ferramentas suficientes para realizar edições complexas com rapidez e precisão, tanto em códigos quanto em textos formatados.
+

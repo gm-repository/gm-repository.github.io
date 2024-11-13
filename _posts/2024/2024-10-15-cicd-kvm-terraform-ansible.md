@@ -428,4 +428,4 @@ sudo iptables -t nat -I PREROUTING -p tcp --dport 8080 -j DNAT --to 192.168.122.
 ### Instale o Dokuwiki
 ```bash
 http://192.168.122.44:8080/install.php
-``
+```

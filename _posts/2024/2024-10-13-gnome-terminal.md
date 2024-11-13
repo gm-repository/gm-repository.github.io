@@ -607,3 +607,4 @@ Você pode alternar entre as conexões ou visualizá-las simultaneamente.
 ### **Conclusão**
 
 Com estas otimizações, o **GNOME Terminal** se torna uma ferramenta extremamente eficiente para administradores de sistemas Linux. Personalizando o histórico de comandos, automatizando tarefas frequentes, e integrando SSH de forma eficiente, você pode reduzir o tempo gasto em tarefas repetitivas e melhorar seu fluxo de trabalho.
+

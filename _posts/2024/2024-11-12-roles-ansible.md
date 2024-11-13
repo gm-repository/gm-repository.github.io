@@ -163,6 +163,7 @@ Explicar a estrutura de arquivos e diretórios em uma role no Ansible, detalhand
 
    - **Conteúdo dos Arquivos**:
      - **`tasks/main.yml`**: Define as tarefas principais da configuração do servidor Nginx.
+
        ```yaml
        ---
        - name: Instalar o pacote Nginx
@@ -181,7 +182,9 @@ Explicar a estrutura de arquivos e diretórios em uma role no Ansible, detalhand
            src: index.html
            dest: /var/www/html/index.html
        ```
+
      - **`handlers/main.yml`**: Define um handler que reinicia o Nginx após qualquer alteração relevante.
+
        ```yaml
        ---
        - name: Reiniciar Nginx
@@ -200,31 +203,41 @@ Explicar a estrutura de arquivos e diretórios em uma role no Ansible, detalhand
            }
        }
        ```
+
      - **`files/index.html`**: Arquivo estático de exemplo para a página inicial.
+
        ```html
        <html>
          <head><title>Bem-vindo ao Nginx!</title></head>
          <body><h1>Página Inicial do Servidor Nginx</h1></body>
        </html>
        ```
+
      - **`vars/main.yml`**: Define variáveis específicas da role, que são aplicadas automaticamente ao executar a role.
+
        ```yaml
        ---
        nginx_port: 80
        nginx_server_name: "meusite.com"
        ```
+
      - **`defaults/main.yml`**: Define variáveis padrão que podem ser substituídas em diferentes contextos (inventário ou playbook).
+
        ```yaml
        ---
        nginx_port: 80
        nginx_server_name: "localhost"
        ```
+
      - **`meta/main.yml`**: Define metadados da role. Neste exemplo, a role não depende de outras, então esse arquivo pode estar vazio ou ter apenas um esboço.
+
        ```yaml
        ---
        dependencies: []
        ```
+
      - **`README.md`**: Documentação que explica o objetivo da role e as variáveis configuráveis. Esse é um exemplo de documentação para o usuário:
+
        ```markdown
        # Role `webserver`
 
@@ -283,6 +296,7 @@ Demonstrar como criar uma role no Ansible para configurar um serviço específic
 2. **Editando o Arquivo `tasks/main.yml` para Definir Tarefas**
    - A role `apache` precisa de tarefas para instalar o Apache e configurar seu serviço. Vamos editar o arquivo `tasks/main.yml` para definir essas ações.
    - **Conteúdo de `tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Instalar o pacote Apache
@@ -297,6 +311,7 @@ Demonstrar como criar uma role no Ansible para configurar um serviço específic
          state: started
          enabled: true
      ```
+
    - **Explicação**:
      - A primeira tarefa usa o módulo `apt` para instalar o Apache (`apache2`) em sistemas baseados em Debian. O `when` é uma condicional que garante que a tarefa só seja executada em sistemas que pertençam à família Debian (ex.: Debian, Ubuntu).
      - A segunda tarefa usa o módulo `service` para iniciar o serviço Apache e garantir que ele seja ativado automaticamente no boot.
@@ -304,17 +319,20 @@ Demonstrar como criar uma role no Ansible para configurar um serviço específic
 3. **Definindo Variáveis para Customizar a Role**
    - Variáveis permitem tornar a role mais flexível, permitindo configurar opções sem editar a estrutura de tarefas. As variáveis padrão podem ser definidas no arquivo `defaults/main.yml`, e outras variáveis específicas no `vars/main.yml`.
    - **Conteúdo de `defaults/main.yml`**:
+
      ```yaml
      ---
      apache_port: 80
      apache_server_name: "localhost"
      ```
+
    - **Explicação**:
      - A variável `apache_port` define a porta em que o Apache será executado (padrão 80) e `apache_server_name` define o nome do servidor (padrão "localhost"). Essas variáveis podem ser usadas em um template de configuração.
 
 4. **Adicionando um Template para o Arquivo de Configuração**
    - Para configurar o Apache de forma customizada, vamos criar um template do arquivo de configuração, usando variáveis que definimos em `defaults/main.yml`. Esse template será um arquivo Jinja2 dentro de `templates/`.
    - **Criação de `templates/apache.conf.j2`**:
+
      ```apache
      <VirtualHost *:{{ apache_port }}>
          ServerName {{ apache_server_name }}
@@ -325,12 +343,14 @@ Demonstrar como criar uma role no Ansible para configurar um serviço específic
          </Directory>
      </VirtualHost>
      ```
+
    - **Explicação**:
      - Este template cria uma configuração de VirtualHost para o Apache, utilizando as variáveis `apache_port` e `apache_server_name`. O diretório `/var/www/html` é definido como o diretório raiz.
 
 5. **Adicionando o Template em `tasks/main.yml`**
    - Vamos adicionar uma tarefa em `tasks/main.yml` para copiar o arquivo de configuração gerado pelo template para o local adequado no servidor.
    - Atualização de `tasks/main.yml`:
+
      ```yaml
      ---
      - name: Instalar o pacote Apache
@@ -359,6 +379,7 @@ Demonstrar como criar uma role no Ansible para configurar um serviço específic
 6. **Configurando Handlers para Reiniciar o Apache**
    - Os handlers são tarefas especiais que só são executadas quando notificadas por outras tarefas. Vamos configurar um handler em `handlers/main.yml` para reiniciar o Apache quando o arquivo de configuração for alterado.
    - **Conteúdo de `handlers/main.yml`**:
+
      ```yaml
      ---
      - name: Reiniciar Apache
@@ -385,6 +406,7 @@ Demonstrar como criar uma role no Ansible para configurar um serviço específic
 
 8. **Testando a Role `apache` em um Playbook**
    - Para usar a role `apache`, vamos criar um playbook de teste:
+
      ```yaml
      ---
      - name: Configurar Servidor Apache
@@ -417,6 +439,7 @@ Explicar como configurar variáveis dentro de uma role para tornar as tarefas fl
    - **`defaults`**: Ideal para variáveis padrão que podem ser sobrescritas facilmente em diferentes contextos (playbooks, inventários, etc.). Essas variáveis tornam a role mais flexível.
    - **`vars`**: Utilizado para variáveis específicas que têm precedência sobre o que for definido no inventário ou em `defaults`. São úteis para valores essenciais que a role precisa para funcionar corretamente.
    - Exemplo de uso:
+
      ```yaml
      # defaults/main.yml
      apache_port: 80
@@ -431,6 +454,7 @@ Explicar como configurar variáveis dentro de uma role para tornar as tarefas fl
    - Vamos modificar nossa role `apache` para torná-la mais flexível usando variáveis. Adicionaremos variáveis que permitem customizar a porta do Apache, o nome do servidor e o diretório raiz do site.
    
    - **Conteúdo de `defaults/main.yml`**:
+
      ```yaml
      ---
      apache_port: 80
@@ -443,6 +467,7 @@ Explicar como configurar variáveis dentro de uma role para tornar as tarefas fl
 4. **Usando Variáveis no Template de Configuração**
    - No arquivo de template `templates/apache.conf.j2`, vamos usar essas variáveis para criar uma configuração de servidor Apache personalizada.
    - **Conteúdo de `templates/apache.conf.j2`**:
+
      ```apache
      <VirtualHost *:{{ apache_port }}>
          ServerName {{ apache_server_name }}
@@ -460,6 +485,7 @@ Explicar como configurar variáveis dentro de uma role para tornar as tarefas fl
 5. **Sobrescrevendo Variáveis em um Playbook**
    - Vamos criar um playbook que sobrescreve algumas das variáveis padrão da role `apache` para personalizar a configuração de um servidor específico.
    - **Exemplo de Playbook**:
+
      ```yaml
      ---
      - name: Configuração de Servidor Apache Customizado
@@ -503,6 +529,7 @@ Explicar como configurar variáveis dentro de uma role para tornar as tarefas fl
      ```
 
    - **Conteúdo Final de `tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Instalar o pacote Apache
@@ -529,6 +556,7 @@ Explicar como configurar variáveis dentro de uma role para tornar as tarefas fl
      ```
 
    - **Conteúdo de `defaults/main.yml`**:
+
      ```yaml
      ---
      apache_port: 80
@@ -553,6 +581,7 @@ Demonstrar como usar templates e arquivos em roles no Ansible para gerar arquivo
 2. **Criando um Template para o Arquivo de Configuração do Apache**
    - Continuando com nossa role `apache`, vamos criar um template para o arquivo de configuração do Apache, que utiliza variáveis para definir a porta, o nome do servidor e o diretório raiz do site.
    - **Conteúdo de `templates/apache.conf.j2`**:
+
      ```apache
      <VirtualHost *:{{ apache_port }}>
          ServerName {{ apache_server_name }}
@@ -571,6 +600,7 @@ Demonstrar como usar templates e arquivos em roles no Ansible para gerar arquivo
 3. **Utilizando o Template em Tarefas**
    - Para aplicar o template, vamos adicionar uma tarefa em `tasks/main.yml` que copia o template `apache.conf.j2` para o diretório de configuração do Apache no servidor, substituindo o arquivo padrão.
    - **Atualização de `tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Instalar o pacote Apache
@@ -604,6 +634,7 @@ Demonstrar como usar templates e arquivos em roles no Ansible para gerar arquivo
    - Vamos adicionar uma página inicial padrão no diretório `files/` para que seja copiada para o servidor.
    
    - **Conteúdo de `files/index.html`**:
+
      ```html
      <html>
        <head><title>Bem-vindo ao Apache!</title></head>
@@ -616,6 +647,7 @@ Demonstrar como usar templates e arquivos em roles no Ansible para gerar arquivo
 5. **Copiando Arquivos Fixos com Tarefas**
    - Para copiar o arquivo `index.html` para o servidor, vamos adicionar uma tarefa que utiliza o módulo `copy` em `tasks/main.yml`.
    - **Atualização de `tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Instalar o pacote Apache
@@ -667,6 +699,7 @@ Demonstrar como usar templates e arquivos em roles no Ansible para gerar arquivo
      ```
 
    - **Conteúdo Final de `defaults/main.yml`**:
+
      ```yaml
      ---
      apache_port: 80
@@ -677,6 +710,7 @@ Demonstrar como usar templates e arquivos em roles no Ansible para gerar arquivo
 7. **Testando a Role com o Template e Arquivo Fixo**
 
    - Para testar a role com o template e o arquivo, podemos utilizar o seguinte playbook:
+
      ```yaml
      ---
      - name: Configuração de Servidor Apache com Página Inicial Customizada
@@ -718,6 +752,7 @@ Explicar como configurar handlers em roles para executar ações específicas ap
    - Vamos criar um handler chamado `Reiniciar Apache` para a role `apache`. Esse handler será acionado sempre que o arquivo de configuração do Apache (`000-default.conf`) for alterado.
    
    - **Conteúdo de `handlers/main.yml`**:
+
      ```yaml
      ---
      - name: Reiniciar Apache
@@ -725,12 +760,14 @@ Explicar como configurar handlers em roles para executar ações específicas ap
          name: apache2
          state: restarted
      ```
+
    - **Explicação**:
      - O handler `Reiniciar Apache` usa o módulo `service` para reiniciar o Apache. Ele será notificado por qualquer tarefa que modifique o arquivo de configuração do Apache.
 
 4. **Notificando o Handler a Partir de uma Tarefa**
    - Agora que o handler está configurado, precisamos adicionar notificações em tarefas específicas, como a tarefa que aplica o template de configuração. Quando a configuração é alterada, o handler será acionado para reiniciar o Apache.
    - **Atualização de `tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Instalar o pacote Apache
@@ -760,6 +797,7 @@ Explicar como configurar handlers em roles para executar ações específicas ap
          state: started
          enabled: true
      ```
+
    - **Explicação**:
      - As tarefas `Configurar o Apache usando template` e `Habilitar site padrão do Apache` agora notificam o handler `Reiniciar Apache`. Se uma dessas tarefas modificar o servidor, o handler será acionado para aplicar as mudanças imediatamente.
 
@@ -784,6 +822,7 @@ Explicar como configurar handlers em roles para executar ações específicas ap
 6. **Testando a Role com Handlers**
    - Podemos criar um playbook de teste para aplicar a role `apache` e verificar se o handler é acionado quando o template do Apache é atualizado.
    - **Exemplo de Playbook para Teste**:
+
      ```yaml
      ---
      - name: Configuração de Servidor Apache com Handler de Reinicialização
@@ -829,6 +868,7 @@ Demonstrar como definir dependências entre roles no Ansible usando o arquivo `m
 2. **Definindo Dependências no `meta/main.yml`**
    - O `meta/main.yml` permite listar outras roles que devem ser executadas antes da role atual. Cada dependência pode incluir variáveis próprias, específicas para a role que depende.
    - Estrutura básica de uma dependência:
+
      ```yaml
      ---
      dependencies:
@@ -866,6 +906,7 @@ Demonstrar como definir dependências entre roles no Ansible usando o arquivo `m
 4. **Configurando a Role `firewall`**
    - Para simplificar, nossa role `firewall` abrirá as portas necessárias para o servidor web. No arquivo `firewall/tasks/main.yml`, incluímos as tarefas para configurar essas portas.
    - **Conteúdo de `firewall/tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Abrir porta HTTP
@@ -890,6 +931,7 @@ Demonstrar como definir dependências entre roles no Ansible usando o arquivo `m
 5. **Definindo Dependências no `meta/main.yml` da Role `webserver`**
    - Agora, vamos configurar a role `webserver` para depender da role `firewall`, garantindo que o firewall esteja configurado antes do servidor web ser iniciado.
    - **Conteúdo de `webserver/meta/main.yml`**:
+
      ```yaml
      ---
      dependencies:
@@ -904,6 +946,7 @@ Demonstrar como definir dependências entre roles no Ansible usando o arquivo `m
 6. **Exemplo Completo de Configuração da Role `webserver` com Dependência**
 
    - **Conteúdo de `webserver/tasks/main.yml`**:
+
      ```yaml
      ---
      - name: Instalar o Apache
@@ -932,6 +975,7 @@ Demonstrar como definir dependências entre roles no Ansible usando o arquivo `m
 7. **Testando a Role `webserver` com Dependência**
    - Para verificar se as dependências estão funcionando, crie um playbook para aplicar a role `webserver`. O Ansible executará automaticamente a role `firewall` antes de aplicar `webserver`, conforme definido em `meta/main.yml`.
    - **Exemplo de Playbook**:
+
      ```yaml
      ---
      - name: Configuração de Servidor com Webserver e Firewall
@@ -970,6 +1014,7 @@ Explicar como incluir e executar roles em playbooks do Ansible, aproveitando as 
 1. **Usando a Diretiva `roles` em Playbooks**
    - A maneira mais comum de incluir roles em um playbook é através da diretiva `roles`. Em vez de definir tarefas diretamente no playbook, você pode listar as roles a serem executadas. Isso torna o playbook mais limpo e fácil de entender.
    - Estrutura básica:
+
      ```yaml
      ---
      - name: Playbook de Configuração
@@ -994,6 +1039,7 @@ Explicar como incluir e executar roles em playbooks do Ansible, aproveitando as 
          └── database/
      ```
    - **Conteúdo de `playbook.yml`**:
+
      ```yaml
      ---
      - name: Configuração Completa do Servidor
@@ -1010,6 +1056,7 @@ Explicar como incluir e executar roles em playbooks do Ansible, aproveitando as 
 3. **Execução de Múltiplas Roles em um Único Playbook**
    - No Ansible, as roles são executadas na ordem em que são listadas no playbook. Roles com dependências (definidas no `meta/main.yml`) são automaticamente aplicadas antes da role principal.
    - Exemplo:
+
      ```yaml
      ---
      - name: Configuração do Servidor com Dependências
@@ -1029,6 +1076,7 @@ Explicar como incluir e executar roles em playbooks do Ansible, aproveitando as 
 4. **Personalizando Roles em Playbooks com Variáveis**
    - Roles podem ser personalizadas diretamente no playbook usando variáveis específicas. Isso é feito dentro da definição da role, aplicando variáveis de forma customizada para cada play.
    - **Exemplo com Variáveis**:
+
      ```yaml
      ---
      - name: Configurar Webserver com Variáveis Customizadas
@@ -1046,6 +1094,7 @@ Explicar como incluir e executar roles em playbooks do Ansible, aproveitando as 
 5. **Usando Condicionais para Executar Roles com `when`**
    - Em cenários onde você quer aplicar uma role apenas em condições específicas, pode-se usar `when` para definir essa execução condicional.
    - Exemplo:
+
      ```yaml
      ---
      - name: Configuração Condicional de Firewall e Webserver
@@ -1061,6 +1110,7 @@ Explicar como incluir e executar roles em playbooks do Ansible, aproveitando as 
 6. **Passagem de Variáveis a Múltiplas Roles no Playbook**
    - Quando um playbook inclui várias roles que precisam das mesmas variáveis, é possível definir essas variáveis no nível do play, aplicando-as a todas as roles que as utilizarem.
    - Exemplo:
+
      ```yaml
      ---
      - name: Configuração Completa com Variáveis Globais
@@ -1081,6 +1131,7 @@ Explicar como incluir e executar roles em playbooks do Ansible, aproveitando as 
 7. **Exemplo Completo de Playbook com Múltiplas Roles**
 
    - **Conteúdo Final do Playbook Completo**:
+
      ```yaml
      ---
      - name: Configuração de Infraestrutura Completa
@@ -1133,6 +1184,7 @@ Demonstrar como sobrescrever variáveis de roles em playbooks para adaptar as co
 3. **Exemplo de Sobrescrição de Variáveis no Playbook**
    - No playbook, você pode sobrescrever variáveis específicas ao listar cada role. Essa abordagem permite aplicar configurações diferentes para cada execução, sem modificar o código da role.
    - **Exemplo**:
+
      ```yaml
      ---
      - name: Configuração Personalizada do Servidor Web
@@ -1151,6 +1203,7 @@ Demonstrar como sobrescrever variáveis de roles em playbooks para adaptar as co
 4. **Definindo Variáveis no Nível do Play**
    - Quando várias roles utilizam as mesmas variáveis, é possível defini-las no nível do play, o que torna as variáveis globais para todas as roles listadas.
    - **Exemplo**:
+
      ```yaml
      ---
      - name: Configuração Completa do Servidor
@@ -1181,6 +1234,7 @@ Demonstrar como sobrescrever variáveis de roles em playbooks para adaptar as co
 6. **Exemplo Completo com Diferentes Métodos de Personalização**
 
    - **Playbook Completo**:
+
      ```yaml
      ---
      - name: Configuração de Servidor com Customização Completa
@@ -1257,6 +1311,7 @@ Explicar como organizar projetos Ansible que envolvem múltiplas roles, incluind
 2. **Organização de Playbooks**
    - Em projetos com múltiplas roles, é útil ter playbooks distintos para cada camada ou grupo de serviços (por exemplo, `webserver.yml` para servidores web e `database.yml` para bancos de dados).
    - **Conteúdo de `site.yml`** (Playbook principal que chama outros playbooks):
+
      ```yaml
      ---
      - import_playbook: webserver.yml
@@ -1324,6 +1379,7 @@ Explicar como organizar projetos Ansible que envolvem múltiplas roles, incluind
 
 6. **Exemplo Completo de Playbook e Inventário**
    - **Playbook `webserver.yml`**:
+
      ```yaml
      ---
      - name: Configuração de Servidor Web
@@ -1334,6 +1390,7 @@ Explicar como organizar projetos Ansible que envolvem múltiplas roles, incluind
          - webserver
      ```
    - **Playbook `database.yml`**:
+
      ```yaml
      ---
      - name: Configuração do Banco de Dados
@@ -1344,6 +1401,7 @@ Explicar como organizar projetos Ansible que envolvem múltiplas roles, incluind
      ```
 
    - **Variáveis para `webservers` (`inventories/production/group_vars/webservers.yml`)**:
+
      ```yaml
      apache_port: 8080
      apache_server_name: "production.intranet.local"
@@ -1468,6 +1526,7 @@ Explicar como utilizar o Ansible Galaxy para baixar e compartilhar roles, aprove
 4. **Gerenciamento de Roles no Arquivo `requirements.yml`**
    - Para projetos que utilizam múltiplas roles do Ansible Galaxy, o arquivo `requirements.yml` permite listar todas as roles necessárias, com suas respectivas versões. Esse arquivo simplifica o gerenciamento e facilita a instalação de todas as dependências com um único comando.
    - **Conteúdo de `requirements.yml`**:
+
      ```yaml
      ---
      - src: geerlingguy.apache
@@ -1511,6 +1570,7 @@ Explicar como utilizar o Ansible Galaxy para baixar e compartilhar roles, aprove
 7. **Exemplo Completo: Utilizando uma Role do Galaxy no Playbook**
 
    - **Criação de um Arquivo `requirements.yml`**:
+
      ```yaml
      ---
      - src: geerlingguy.apache
@@ -1523,6 +1583,7 @@ Explicar como utilizar o Ansible Galaxy para baixar e compartilhar roles, aprove
      ansible-galaxy install -r requirements.yml
      ```
    - **Playbook que Usa as Roles do Galaxy**:
+
      ```yaml
      ---
      - name: Configuração Completa com Apache e MySQL

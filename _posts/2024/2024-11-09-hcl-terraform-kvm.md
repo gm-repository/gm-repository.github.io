@@ -40,7 +40,7 @@ Seja você um iniciante ou alguém buscando aprimorar suas habilidades em Terraf
 
 ### **1. Introdução ao HCL, Terraform e KVM**
 
-#### **Objetivo:****
+#### **Objetivo:**
 Apresentar conceitos fundamentais sobre HCL, Terraform e KVM, destacando suas funcionalidades e o potencial do uso combinado dessas ferramentas para implementar a infraestrutura como código (IaC) em ambientes KVM.
 
 ---
@@ -2906,4 +2906,3 @@ Ao seguir essas práticas, você pode construir uma infraestrutura eficiente, se
 O uso do Terraform com KVM abre possibilidades para automação e otimização de infraestrutura, fornecendo controle e flexibilidade para ambientes em desenvolvimento e produção. A partir daqui, você pode explorar e expandir suas configurações, adaptando-as para projetos mais complexos e dinâmicos, e assim alcançar novas metas na administração de infraestrutura como código.
 
 ---
-

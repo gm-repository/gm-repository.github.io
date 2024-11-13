@@ -19,12 +19,10 @@ keywords:
 2. [Parte 2: Automatizando a Instalação do Docker com Ansible](#parte-2-configuração-de-conexão-ssh-e-inventário-do-ansible)
 3. [Parte 3: Automatizando o Docker Compose e Implantando Aplicações](#parte-3-automatizando-a-instalação-do-docker-com-ansible)
 
-
-Esses elementos estruturam o tutorial, facilitando a navegação e compreensão do conteúdo, além de fornecer um resumo inicial claro dos passos envolvidos.
 ### Parte 1: Instalação e Configuração do Ansible no Controlador Ubuntu
 
 #### 1. **Atualizando o sistema e instalando Ansible**
-Antes de instalar o Ansible, é importante garantir que seu sistema está atualizado. Execute os seguintes comandos no terminal do controlador (máquina onde o Ansible será instalado):
+Antes de instalar o Ansible, é importante garantir que seu sistema está atualizado. Execute os seguintes comandos no terminal do controlador (máquina onde o Ansible será instalado - Ubuntu, nos exemplos que seguem):
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -224,8 +222,6 @@ ansible docker -m shell -a "docker --version"
 
 Se a versão do Docker for exibida, a instalação foi bem-sucedida.
 
----
-
 ### Parte 4: Automatizando o Docker Compose e Implantando Aplicações
 
 Agora que o Docker está instalado e funcionando, podemos avançar para a criação de um **playbook para implantar aplicações** usando Docker Compose.
@@ -298,7 +294,6 @@ services:
     volumes:
       - ./html:/storage
 ```
-
 Esse arquivo define o serviço DokuWiki, mapeando portas e configurando volumes e variáveis de ambiente.
 
 #### 3. **Executando o playbook para o Docker Compose**
@@ -307,14 +302,10 @@ Execute o playbook `playbook-compose.yml` para configurar e iniciar o DokuWiki:
 ```bash
 ansible-playbook playbook-compose.yml
 ```
-
 Por fim, verifique se o contêiner está em execução:
 
 ```bash
 ansible docker -m shell -a "docker container ls"
 ```
-
 Se o contêiner estiver listado, sua aplicação está rodando corretamente.
-
----
 

@@ -28,8 +28,6 @@ excerpt: "Aprenda como utilizar o APT para gerenciar pacotes no Debian e Ubuntu.
 
 ---
 
-# Tutorial Completo: Gerenciador de Pacotes APT no Debian e Ubuntu
-
 ## Introdução ao APT
 
 O **APT (Advanced Package Tool)** é o gerenciador de pacotes utilizado no Debian, Ubuntu e distribuições derivadas. Ele facilita a instalação, atualização, remoção e pesquisa de pacotes de software, lidando automaticamente com dependências.

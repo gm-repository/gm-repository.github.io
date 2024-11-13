@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Guia Completo de Hardening em Servidores Linux: Segurança em Camadas"
-date: 2023-11-11 14:15:16 -0300
+date: 2024-11-11 14:15:16 -0300
 categories: [Segurança, Linux, Hardening, Servidores]
 tags: [hardening, linux, segurança, servidores, firewall, ssh, criptografia]
 excerpt: >

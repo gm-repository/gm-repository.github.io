@@ -25,7 +25,6 @@ language: "pt-BR"
 - [Configuração do Vim com Plugins e Temas](#configuração-do-vim-com-plugins-e-temas)
 - [Dicas de Solução de Problemas Comuns](#dicas-de-solução-de-problemas-comuns)
 - [Scripts de Automação em Bash para Profissionais de TI](#scripts-de-automação-em-bash-para-profissionais-de-ti)
-- [Automação com Scripts Personalizados e rclone](#automação-com-scripts-personalizados-e-rclone)
 
 ---
 
@@ -249,6 +248,9 @@ Vamos começar criando um arquivo específico para armazenar a função `ssh_men
      - **remove_ssh**: Remove o host SSH com base no alias fornecido.
      - **list_hosts**: Lista todos os hosts disponíveis no arquivo de hosts.
    - **Menu `fzf`**: Exibe opções de adição, remoção e listagem de hosts, permitindo também selecionar e conectar-se diretamente a um host.
+
+> Use o comando `for` para enviar a chave pública para vários hosts: `for ip in $(seq 160 170); do ssh-copy-id -i $HOME/.ssh/id_rsa.pub 192.168.200.$ip; done`.
+{: .prompt-tip }
 
 ### 2 Habilitando o Arquivo de Funções no `.bashrc`
 
@@ -680,6 +682,8 @@ Com isso, você poderá usar atalhos para mover-se entre janelas do Tmux e pain�
 
 ## Scripts de Automação em Bash para Profissionais de TI
 
+Automatizar tarefas frequentes com scripts em Bash é uma prática poderosa para profissionais de TI, permitindo que processos de manutenção, backup e monitoramento sejam realizados de forma consistente e eficiente. Nesta seção, veremos alguns exemplos de scripts personalizados para backup, monitoramento de sistema e uso do **rclone** para sincronização de dados na nuvem.
+
 ### 1. Script de Backup e Sincronização de Diretórios
 
 Esse script realiza um backup incremental de um diretório (usando `rsync`) e armazena uma cópia em um diretório de backup. Ele é útil para manter backups locais atualizados e economizar espaço.
@@ -744,24 +748,6 @@ fi
   ```bash
   */5 * * * * /caminho/para/seu/script_monitoramento.sh
   ```
-
-### 3. Script para Limpeza Automática de Arquivos Temporários
-
-Este script encontra e remove arquivos temporários ou arquivos de log antigos de um diretório específico. Ele é útil para liberar espaço em disco.
-
-```bash
-#!/bin/bash
-
-# Diretório e quantidade de dias para manter arquivos
-DIR="/var/logs/meu_app"
-DAYS=30
-
-# Remove arquivos modificados há mais de $DAYS dias
-find "$DIR" -type f -mtime +$DAYS -exec rm -f {} \;
-
-# Log da operação
-echo "Limpeza concluída em $(date) para arquivos com mais de $DAYS dias no diretório $DIR" >> /var/log/cleanup_log.txt
-```
 
 - **Personalização**: Defina `DIR` e `DAYS` de acordo com o que deseja limpar.
 - **Automatização**: Execute semanalmente ou conforme necessário:
@@ -842,72 +828,6 @@ cat "$REPORT" | mail -s "Relatório Diário de Sistema" "$EMAIL"
 
 ---
 
-## Automação com Scripts Personalizados e rclone
-
-Automatizar tarefas frequentes com scripts em Bash é uma prática poderosa para profissionais de TI, permitindo que processos de manutenção, backup e monitoramento sejam realizados de forma consistente e eficiente. Nesta seção, veremos alguns exemplos de scripts personalizados para backup, monitoramento de sistema e uso do **rclone** para sincronização de dados na nuvem.
-
-### Script de Backup e Sincronização de Diretórios
-
-Este script realiza um backup incremental usando `rsync` e armazena uma cópia dos arquivos em um diretório de backup. Ele é útil para criar uma rotina de backup local.
-
-```bash
-#!/bin/bash
-
-# Diretórios de origem e destino
-SOURCE_DIR="$HOME/projetos"
-BACKUP_DIR="/backup/projetos_$(date +%Y-%m-%d)"
-LOG_FILE="/var/log/backup_log.txt"
-
-# Verifica se o diretório de backup existe; se não, cria
-mkdir -p "$BACKUP_DIR"
-
-# Executa o backup com rsync (incremental)
-echo "Iniciando backup de $SOURCE_DIR para $BACKUP_DIR" | tee -a "$LOG_FILE"
-rsync -av --delete "$SOURCE_DIR/" "$BACKUP_DIR/" | tee -a "$LOG_FILE"
-echo "Backup concluído em $(date)" | tee -a "$LOG_FILE"
-```
-
-**Automatização com Cron**: Para executar esse script automaticamente, adicione-o ao cron:
-```bash
-0 2 * * * /caminho/para/seu/script_backup.sh
-```
-
-### Script para Monitorar o Uso de CPU e Memória
-
-Este script monitora o uso de CPU e memória e envia um alerta por e-mail caso algum limite seja ultrapassado.
-
-```bash
-#!/bin/bash
-
-# Configuração de Limites
-CPU_LIMIT=80
-MEMORY_LIMIT=80
-
-# Coleta de dados de uso de CPU e Memória
-CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
-MEMORY_USAGE=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
-
-# Função para enviar alertas por e-mail
-send_alert() {
-    local message=$1
-    echo "$message" | mail -s "Alerta de Uso de Recursos" seu_email@example.com
-}
-
-# Verifica se os limites foram ultrapassados
-if (( $(echo "$CPU_USAGE > $CPU_LIMIT" | bc -l) )); then
-    send_alert "Uso de CPU está em $CPU_USAGE%, acima do limite de $CPU_LIMIT%"
-fi
-
-if (( $(echo "$MEMORY_USAGE > $MEMORY_LIMIT" | bc -l) )); then
-    send_alert "Uso de Memória está em $MEMORY_USAGE%, acima do limite de $MEMORY_LIMIT%"
-fi
-```
-
-**Automatização com Cron**: Execute a cada 5 minutos para monitoramento contínuo:
-```bash
-*/5 * * * * /caminho/para/seu/script_monitoramento.sh
-```
-
 ### rclone para Backup na Nuvem
 
 O **rclone** é uma excelente ferramenta para sincronizar diretórios locais com vários provedores de armazenamento em nuvem. Abaixo, apresento a configuração básica e exemplos de uso.
@@ -972,43 +892,6 @@ echo "Limpeza concluída em $(date) para arquivos com mais de $DAYS dias em $DIR
 **Automatização com Cron**: Execute semanalmente, por exemplo, aos domingos às 3h:
 ```bash
 0 3 * * 0 /caminho/para/seu/script_limpeza.sh
-```
-
-### Relatório Diário do Sistema
-
-Esse script gera um relatório com informações sobre o uso de disco, CPU, memória e status de serviços essenciais, e envia por e-mail.
-
-```bash
-#!/bin/bash
-
-# Configuração do e-mail
-EMAIL="seu_email@example.com"
-
-# Gera o relatório
-REPORT="/tmp/system_report.txt"
-{
-    echo "Relatório de Status do Sistema - $(date)"
-    echo "---------------------------------------"
-    echo "Uso de Disco:"
-    df -h
-    echo
-    echo "Uso de Memória:"
-    free -h
-    echo
-    echo "Uso de CPU:"
-    top -bn1 | grep "Cpu(s)"
-    echo
-    echo "Serviços Críticos:"
-    systemctl is-active nginx mysql
-} > "$REPORT"
-
-# Envia o relatório por e-mail
-cat "$REPORT" | mail -s "Relatório Diário de Sistema" "$EMAIL"
-```
-
-**Automatização com Cron**: Agende para executar diariamente às 7h:
-```bash
-0 7 * * * /caminho/para/seu/script_relatorio_sistema.sh
 ```
 
 ---

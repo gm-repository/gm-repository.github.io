@@ -146,3 +146,4 @@ Aproveitar o modo de seleção por bloco é especialmente vantajoso para realiza
 
 Explore e pratique os comandos apresentados, e descubra como o Vim pode facilitar ainda mais seu trabalho diário. Com domínio dessa técnica, você estará pronto para encarar edições de texto com mais confiança e agilidade.
 
+

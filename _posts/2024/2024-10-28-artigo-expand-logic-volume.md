@@ -1,6 +1,6 @@
 ---
 title: "Expansão de Volumes Lógicos em VMs KVM com Terraform"
-date: 2023-10-28 12:12:12 -0300
+date: 2024-10-28 12:01:00 -0300
 tags:
   - KVM
   - Terraform
@@ -261,7 +261,7 @@ Agora que o disco foi adicionado, vamos configurar o dispositivo `/dev/vdb` como
 
 1. Conecte-se à VM usando o SSH:
    ```bash
-   ssh gean@<IP_da_VM>
+   ssh 192.168.122.236 
    ```
 
 2. Verifique se o disco `/dev/vdb` está listado como um dispositivo disponível:
@@ -463,7 +463,7 @@ Agora, com o novo disco `/dev/vdc` conectado à VM, vamos configurá-lo como um 
 
 1. Conecte-se à VM via SSH:
    ```bash
-   ssh gean@<IP_da_VM>
+   ssh 192.168.122.236
    ```
 
 2. Verifique se o disco `/dev/vdc` está disponível:

@@ -1,8 +1,7 @@
 ---
 title: "Orquestrando Ambientes com Docker Swarm"
 description: "Aprenda a configurar e gerenciar clusters de nós Docker usando o Docker Swarm. Inclui passos para criar clusters, adicionar nós e gerenciar tarefas de forma eficiente."
-author: "Seu Nome"
-date: "2024-10-17"
+date: "2024-10-17 13:40:02 -0300"
 categories: ["Docker", "Orquestração de Containers", "DevOps"]
 tags: ["Docker Swarm", "Cluster", "Orquestração", "Containers", "DevOps"]
 layout: "post"

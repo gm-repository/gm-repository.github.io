@@ -1892,7 +1892,7 @@ Esse foi o último tópico do tutorial. Agora você tem uma visão completa sobr
 
 ---
 
-### Conclusão
+### Conclusão Geral
 
 Ao integrar o Docker com o GitLab CI/CD, é possível criar pipelines de automação robustos e flexíveis, com ambientes de execução consistentes, testes isolados e deploys automatizados. Neste tutorial, abordamos desde configurações iniciais até práticas avançadas, capacitando os usuários a automatizar processos de maneira segura e eficiente. Com técnicas como deploys canários e blue-green, além da integração com monitoramento e notificações, esse fluxo de trabalho oferece maior controle e confiança nas atualizações em produção.
 

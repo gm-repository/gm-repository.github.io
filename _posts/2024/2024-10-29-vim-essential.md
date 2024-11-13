@@ -1,10 +1,9 @@
 ---
 layout: post
 title: "Guia Completo de Comandos Essenciais e Navegação Avançada no Vim"
-date: 2023-11-01
+date: 2024-10-29 10:10:10 -0300
 categories: [Vim, Tutoriais, Edição de Texto]
 tags: [vim, comandos, navegação, substituição]
-author: "Seu Nome"
 summary: "Explore os comandos essenciais e avançados no Vim, desde navegação e edição até busca, substituição e manipulação de múltiplas linhas."
 ---
 
@@ -182,5 +181,3 @@ O comando `:g` permite aplicar comandos em massa a linhas que correspondem a um 
 | `:g/^$/d`       | Remove todas as linhas em branco do arquivo.                   | Útil para limpar espaçamentos desnecessários.     |
 
 > **Exemplo Prático**: Para deletar todas as linhas que contenham "debug", execute `:g/debug/d`. Para substituir "HTTP" por "HTTPS" apenas em linhas que contenham "URL", use `:g/URL/s/HTTP/HTTPS/g`.
-
----

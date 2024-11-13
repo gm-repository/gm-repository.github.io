@@ -662,7 +662,7 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
        tasks:
          - name: Converter domínio para minúsculas
            debug:
-             msg: "Domínio: {% raw %}{% raw %}{{ dominio | lower }}{% endraw %}{% endraw %}"
+             msg: "Domínio: {% raw %}{{ dominio | lower }}{% endraw %}"
        ```
 
        - Resultado: `"exemplo.com"`.
@@ -677,7 +677,7 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
        tasks:
          - name: Exibir pacotes instalados
            debug:
-             msg: "Pacotes: {% raw %}{% raw %}{{ pacotes | join(', ') }}{% endraw %}{% endraw %}"
+             msg: "Pacotes: {% raw %}{{ pacotes | join(', ') }}{% endraw %}"
        ```
 
        - Resultado: `"Pacotes: nginx, git, curl"`.
@@ -698,7 +698,7 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
        tasks:
          - name: Selecionar usuários ativos
            debug:
-             msg: "{% raw %}{% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}{% endraw %}"
+             msg: "{% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}"
        ```
 
        - Esse filtro retorna apenas os nomes dos usuários que têm `ativo: true`, no caso `"Alice"`.
@@ -715,7 +715,7 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
 
      vars:
        dominio: "EXEMPLO.COM"
-       porta: "{% raw %}{% raw %}{{ porta | default(8080) }}{% endraw %}{% endraw %}"
+       porta: "{% raw %}{{ porta | default(8080) }}{% endraw %}"
        pacotes:
          - nginx
          - git
@@ -727,15 +727,15 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
      tasks:
        - name: Converter domínio para minúsculas
          debug:
-           msg: "Domínio formatado: {% raw %}{% raw %}{{ dominio | lower }}{% endraw %}{% endraw %}"
+           msg: "Domínio formatado: {% raw %}{{ dominio | lower }}{% endraw %}"
 
        - name: Exibir pacotes instalados
          debug:
-           msg: "Pacotes: {% raw %}{% raw %}{{ pacotes | join(', ') }}{% endraw %}{% endraw %}"
+           msg: "Pacotes: {% raw %}{{ pacotes | join(', ') }}{% endraw %}"
 
        - name: Selecionar e exibir usuários ativos
          debug:
-           msg: "Usuários ativos: {% raw %}{% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}{% endraw %}"
+           msg: "Usuários ativos: {% raw %}{{ usuarios | selectattr('ativo', 'eq', true) | map(attribute='nome') | join(', ') }}{% endraw %}"
    ```
 
    **Explicação**:

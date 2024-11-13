@@ -649,7 +649,7 @@ Utilizar o Zabbix como inventário dinâmico permite que o Ansible obtenha uma l
        hosts = get_hosts(auth_token)
 
        # Estrutura do inventário Ansible
-       inventory = {"_meta": {"hostvars": {}}{% endraw %}}
+       inventory = {"_meta": {"hostvars": {}}}
 
        for host in hosts:
            host_ip = host["interfaces"][0]["ip"]

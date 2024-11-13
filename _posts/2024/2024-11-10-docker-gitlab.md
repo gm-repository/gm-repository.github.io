@@ -1637,7 +1637,7 @@ Após configurar o Prometheus, crie um dashboard no Grafana que exibe o tempo m�
     severity: "critical"
   annotations:
     summary: "Duração excessiva do pipeline"
-    description: "O job {{ $labels.job_name }} está em execução há mais de 10 minutos."
+    description: "O job {% raw %}{{ $labels.job_name }}{% endraw %} está em execução há mais de 10 minutos."
 ```
 
 Esse alerta envia uma notificação quando o tempo de execução de um job ultrapassa o limite, permitindo que a equipe identifique gargalos e otimize o pipeline.

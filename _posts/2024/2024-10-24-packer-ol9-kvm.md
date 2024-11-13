@@ -65,7 +65,7 @@ source "qemu" "iso" {
   boot_command     = [
     "<up>",
     "<tab><wait>",
-    " inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg",
+    " inst.ks=http://{% raw %}{{.HTTPIP}}{% endraw %}:{% raw %}{{.HTTPPort}}{% endraw %}/ks.cfg",
     "<enter>"
   ]
   http_directory   = "http"

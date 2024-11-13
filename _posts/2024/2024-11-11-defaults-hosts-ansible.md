@@ -403,10 +403,10 @@ Com essa estrutura, você pode executar um playbook que utiliza essas variáveis
         name: apache2
         state: started
       vars:
-        port: "{{ http_port }}"
+        port: "{% raw %}{{ http_port }}{% endraw %}"
     - name: Print environment
       debug:
-        msg: "Environment: {{ env }}"
+        msg: "Environment: {% raw %}{{ env }}{% endraw %}"
 ```
 
 Neste exemplo, o Ansible aplicará as configurações conforme as variáveis de cada ambiente (`env`) e o parâmetro `http_port` dos servidores web.
@@ -487,7 +487,7 @@ Com a configuração acima, você pode executar um playbook que usa essas variá
       when: "'http_port' in hostvars[inventory_hostname]"
     - name: Configure database
       ansible.builtin.debug:
-        msg: "Database user is {{ db_user }} and backup is enabled: {{ backup_enabled | default(false) }}"
+        msg: "Database user is {% raw %}{{ db_user }}{% endraw %} and backup is enabled: {% raw %}{{ backup_enabled | default(false) }}{% endraw %}"
       when: "'db_user' in hostvars[inventory_hostname]"
 ```
 
@@ -649,7 +649,7 @@ Utilizar o Zabbix como inventário dinâmico permite que o Ansible obtenha uma l
        hosts = get_hosts(auth_token)
 
        # Estrutura do inventário Ansible
-       inventory = {"_meta": {"hostvars": {}}}
+       inventory = {"_meta": {"hostvars": {}}{% endraw %}}
 
        for host in hosts:
            host_ip = host["interfaces"][0]["ip"]
@@ -823,7 +823,7 @@ No Ansible, loops são implementados usando `loop`, `with_items`, e outros contr
      tasks:
        - name: Instalar pacotes
          ansible.builtin.package:
-           name: "{{ item }}"
+           name: "{% raw %}{{ item }}{% endraw %}"
            state: present
          loop:
            - nginx
@@ -842,9 +842,9 @@ No Ansible, loops são implementados usando `loop`, `with_items`, e outros contr
      tasks:
        - name: Adicionar usuários
          ansible.builtin.user:
-           name: "{{ item.name }}"
+           name: "{% raw %}{{ item.name }}{% endraw %}"
            state: present
-           groups: "{{ item.group }}"
+           groups: "{% raw %}{{ item.group }}{% endraw %}"
          loop:
            - { name: 'dbadmin', group: 'dba' }
            - { name: 'dbbackup', group: 'backup' }
@@ -862,17 +862,17 @@ No Ansible, loops são implementados usando `loop`, `with_items`, e outros contr
        - name: Permitir porta de produção
          ansible.builtin.iptables:
            chain: INPUT
-           destination_port: "{{ item }}"
+           destination_port: "{% raw %}{{ item }}{% endraw %}"
            jump: ACCEPT
-         loop: "{{ production_ports }}"
+         loop: "{% raw %}{{ production_ports }}{% endraw %}"
          when: "'prod' in group_names"
 
        - name: Permitir porta de teste
          ansible.builtin.iptables:
            chain: INPUT
-           destination_port: "{{ item }}"
+           destination_port: "{% raw %}{{ item }}{% endraw %}"
            jump: ACCEPT
-         loop: "{{ test_ports }}"
+         loop: "{% raw %}{{ test_ports }}{% endraw %}"
          when: "'test' in group_names"
    ```
 
@@ -891,7 +891,7 @@ Aqui está um exemplo completo de playbook que usa loops para aplicar configura�
   tasks:
     - name: Instalar pacotes em todos os hosts
       ansible.builtin.package:
-        name: "{{ item }}"
+        name: "{% raw %}{{ item }}{% endraw %}"
         state: present
       loop:
         - vim
@@ -962,7 +962,7 @@ Vamos criar um playbook modular com base em funções específicas de servidores
      ```yaml
      - name: Instalar pacotes básicos
        ansible.builtin.package:
-         name: "{{ item }}"
+         name: "{% raw %}{{ item }}{% endraw %}"
          state: present
        loop:
          - vim

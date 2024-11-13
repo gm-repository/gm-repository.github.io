@@ -68,7 +68,7 @@ source "qemu" "debian" {
 
   boot_command         = [
     "<esc><wait>",
-    "auto preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+    "auto preseed/url=http://{% raw %}{{.HTTPIP}}{% endraw %}:{% raw %}{{.HTTPPort}}{% endraw %}/preseed.cfg ",
     "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
     "hostname=debian-tpl ",
     "fb=false ",

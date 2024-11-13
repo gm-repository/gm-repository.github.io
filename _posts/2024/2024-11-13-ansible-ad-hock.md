@@ -1390,9 +1390,9 @@ Ajudar a identificar e corrigir problemas comuns que podem ocorrer ao utilizar c
 9. **Erro de Sintaxe em Expressões Jinja2**
 
    - **Sintoma**: O Ansible retorna um erro relacionado a variáveis ou expressão de template mal formatada.
-   - **Causa Comum**: As expressões Jinja2 não foram escritas corretamente ou há erros de sintaxe no uso de `\{\% \%\}` e `{% raw %}{{ }}{% endraw %}`.
+   - **Causa Comum**: As expressões Jinja2 não foram escritas corretamente ou há erros de sintaxe no uso de `{% raw %}{% %}{% endraw %}` e `{% raw %}{{ }}{% endraw %}`.
    - **Solução**:
-     - Verifique a sintaxe das expressões Jinja2 e sempre use `\{\% \%\}` para lógica (ex.: `if`, `for`) e `{% raw %}{{ }}{% endraw %}` para variáveis.
+     - Verifique a sintaxe das expressões Jinja2 e sempre use `{% raw %}{% %}{% endraw %}` para lógica (ex.: `if`, `for`) e `{% raw %}{{ }}{% endraw %}` para variáveis.
      - Exemplo de uso correto:
        ```bash
        ansible all -m shell -a "echo {% raw %}{{ variable_name }}{% endraw %}"

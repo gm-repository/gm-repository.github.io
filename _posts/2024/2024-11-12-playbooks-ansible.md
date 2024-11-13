@@ -647,7 +647,7 @@ Explicar como utilizar filtros Jinja2 para manipular dados em variáveis dentro 
        tasks:
          - name: Alterar caminho de configuração
            debug:
-             msg: "Novo caminho: {% raw %}{% raw %}{{ caminho_config | replace('/old_folder', '/new_folder') }}{% endraw %}{% endraw %}"
+             msg: "Novo caminho: {% raw %}{{ caminho_config | replace('/old_folder', '/new_folder') }}{% endraw %}"
        ```
 
        - Esse filtro mudará `"/etc/old_folder/config"` para `"/etc/new_folder/config"`.

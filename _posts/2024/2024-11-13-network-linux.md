@@ -28,7 +28,7 @@ Ao final deste tutorial, você terá uma compreensão sólida das diversas abord
 - [Configuração de *Team* para Agregação e Gerenciamento de Links de Rede](#7-configuração-de-team-para-agregação-e-gerenciamento-de-links-de-rede)
 - [Exemplos Práticos de Configuração para Ambientes Comuns](#8-exemplos-práticos-de-configuração-para-ambientes-comuns)
 - [Boas Práticas para Configuração e Manutenção de Redes no Linux](#9-boas-práticas-para-configuração-e-manutenção-de-redes-no-linux)
-- [Exemplos de Configuração Dual Stack (IPv4 e IPv6)](#10-exemplos-de-configuração-dual-stack-ipv4-e-ipv6)
+- [Exemplos de Configuração Dual Stack (IPv4 e IPv6)](#exemplos-de-configuração-dual-stack-ipv4-e-ipv6)
 
 
 ---

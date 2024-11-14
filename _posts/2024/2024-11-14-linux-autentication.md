@@ -1953,7 +1953,7 @@ O Ansible oferece vários módulos úteis para gerenciar autenticação, criaç�
      - name: Cria um novo usuário
        ansible.builtin.user:
          name: "usuario"
-         password: "{{ 'senha123' | password_hash('sha512') }}"
+         password: "{% raw %}{{ 'senha123' | password_hash('sha512') }}{% endraw %}"
          state: present
      ```
 
@@ -2006,7 +2006,7 @@ Demonstrar como usar o Ansible para configurar autenticação local em múltiplo
          - name: Cria uma conta de usuário com senha criptografada
            ansible.builtin.user:
              name: "usuario"
-             password: "{{ 'senha123' | password_hash('sha512') }}"
+             password: "{% raw %}{{ 'senha123' | password_hash('sha512') }}{% endraw %}"
              state: present
              groups: "sudo"
      ```
@@ -2093,7 +2093,7 @@ Automatizar a configuração de clientes LDAP em múltiplos servidores Linux usa
        tasks:
          - name: Instala o pacote de cliente LDAP e SSSD
            ansible.builtin.package:
-             name: "{{ item }}"
+             name: "{% raw %}{{ item }}{% endraw %}"
              state: present
            loop:
              - ldap-utils
@@ -2182,7 +2182,7 @@ Este exemplo reúne todos os passos em um único playbook para automatizar a ins
   tasks:
     - name: Instala pacotes necessários para LDAP e SSSD
       ansible.builtin.package:
-        name: "{{ item }}"
+        name: "{% raw %}{{ item }}{% endraw %}"
         state: present
       loop:
         - ldap-utils
@@ -2266,7 +2266,7 @@ Automatizar a configuração de clientes **Kerberos** em múltiplos servidores L
        tasks:
          - name: Instala o pacote de cliente Kerberos
            ansible.builtin.package:
-             name: "{{ item }}"
+             name: "{% raw %}{{ item }}{% endraw %}"
              state: present
            loop:
              - krb5-user       # Debian/Ubuntu
@@ -2313,7 +2313,7 @@ Automatizar a configuração de clientes **Kerberos** em múltiplos servidores L
        tasks:
          - name: Cria principal para o cliente no KDC
            ansible.builtin.shell: |
-             echo "addprinc -randkey host/{{ ansible_hostname }}@EXEMPLO.LOCAL" | kadmin -p admin@EXEMPLO.LOCAL -w senha_admin
+             echo "addprinc -randkey host/{% raw %}{{ ansible_hostname }}{% endraw %}@EXEMPLO.LOCAL" | kadmin -p admin@EXEMPLO.LOCAL -w senha_admin
            args:
              executable: /bin/bash
      ```
@@ -2329,7 +2329,7 @@ Este exemplo de playbook integra todos os passos para instalação e configuraç
   tasks:
     - name: Instala pacotes necessários para Kerberos
       ansible.builtin.package:
-        name: "{{ item }}"
+        name: "{% raw %}{{ item }}{% endraw %}"
         state: present
       loop:
         - krb5-user
@@ -2357,7 +2357,7 @@ Este exemplo de playbook integra todos os passos para instalação e configuraç
 
     - name: Registra o cliente no KDC criando principal
       ansible.builtin.shell: |
-        echo "addprinc -randkey host/{{ ansible_hostname }}@EXEMPLO.LOCAL" | kadmin -p admin@EXEMPLO.LOCAL -w senha_admin
+        echo "addprinc -randkey host/{% raw %}{{ ansible_hostname }}{% endraw %}@EXEMPLO.LOCAL" | kadmin -p admin@EXEMPLO.LOCAL -w senha_admin
       args:
         executable: /bin/bash
 ```
@@ -2601,7 +2601,7 @@ Este playbook inclui a instalação e configuração do Google Authenticator e U
   tasks:
     - name: Instala Google Authenticator e pam_u2f
       ansible.builtin.package:
-        name: "{{ item }}"
+        name: "{% raw %}{{ item }}{% endraw %}"
         state: present
       loop:
         - libpam-google-authenticator

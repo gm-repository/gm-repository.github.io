@@ -19,20 +19,20 @@ Com explicações detalhadas, exemplos práticos e boas práticas, você terá e
 
 ## Tabela de Conteúdo
 
-1. [Introdução aos Certificados X.509](#1-introducao-aos-certificados-x509)
+1. [Introdução aos Certificados X.509](#1-introdução-aos-certificados-x509)
 2. [Estrutura e Componentes de um Certificado X.509](#2-estrutura-e-componentes-de-um-certificado-x509)
-3. [Autoridade Certificadora (CA) e Cadeia de Certificação](#3-autoridade-certificadora-ca-e-cadeia-de-certificacao)
-4. [Geração de Chaves e Certificados X.509 com OpenSSL](#4-geracao-de-chaves-e-certificados-x509-com-openssl)
-5. [Solicitação de Certificados (CSR) e Assinatura por uma CA](#5-solicitacao-de-certificados-csr-e-assinatura-por-uma-ca)
-6. [Configuração de uma Autoridade Certificadora Local](#6-configuracao-de-uma-autoridade-certificadora-local)
-7. [Validade e Renovação de Certificados](#7-validade-e-renovacao-de-certificados)
-8. [Revogação de Certificados e Listas de Revogação (CRL)](#8-revogacao-de-certificados-e-listas-de-revogacao-crl)
-9. [Certificados X.509 para Autenticação Mútua (MTLS)](#9-certificados-x509-para-autenticacao-mutua-mtls)
+3. [Autoridade Certificadora (CA) e Cadeia de Certificação](#3-autoridade-certificadora-ca-e-cadeia-de-certificação)
+4. [Geração de Chaves e Certificados X.509 com OpenSSL](#4-geração-de-chaves-e-certificados-x509-com-openssl)
+5. [Solicitação de Certificados (CSR) e Assinatura por uma CA](#5-solicitação-de-certificados-csr-e-assinatura-por-uma-ca)
+6. [Configuração de uma Autoridade Certificadora Local](#6-configuração-de-uma-autoridade-certificadora-local)
+7. [Validade e Renovação de Certificados](#7-validade-e-renovação-de-certificados)
+8. [Revogação de Certificados e Listas de Revogação (CRL)](#8-revogação-de-certificados-e-listas-de-revogação-crl)
+9. [Certificados X.509 para Autenticação Mútua (MTLS)](#9-certificados-x509-para-autenticação-mútua-mtls)
 10. [Certificados X.509 para Assinatura Digital](#10-certificados-x509-para-assinatura-digital)
-11. [Automação de Certificados com Ferramentas Modernas](#11-automacao-de-certificados-com-ferramentas-modernas)
+11. [Automação de Certificados com Ferramentas Modernas](#11-automação-de-certificados-com-ferramentas-modernas)
 12. [Certificados X.509 e TLS/SSL em Servidores Web](#12-certificados-x509-e-tlsssl-em-servidores-web)
-13. [Ferramentas de Análise e Validação de Certificados](#13-ferramentas-de-analise-e-validacao-de-certificados)
-14. [Práticas Recomendadas e Checklist de Implementação](#14-praticas-recomendadas-e-checklist-de-implementacao)
+13. [Ferramentas de Análise e Validação de Certificados](#13-ferramentas-de-análise-e-validação-de-certificados)
+14. [Práticas Recomendadas e Checklist de Implementação](#14-práticas-recomendadas-e-checklist-de-implementação)
 
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Guia Completo de Permissões e Propriedades de Arquivos no Linux"
 date: 2024-11-04 19:20:21 -0300
-categories: [linux, tutorial, permissions]
+categories: [Linux, Tutorial, Permissions]
 tags: [linux, permissões, segurança, atributos, chmod, chown, chattr, lsattr]
 excerpt: "Explore o sistema de permissões do Linux, desde configurações básicas até permissões avançadas e atributos de arquivos. Acompanhe nosso guia detalhado com exemplos práticos."
 ---

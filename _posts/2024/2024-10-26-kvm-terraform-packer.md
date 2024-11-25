@@ -2,7 +2,7 @@
 layout: post
 title: "Infraestrutura KVM usando Terraform e Packer"
 date: 2024-10-26 18:01:01 -0300
-categories: [Infraestrutura, Virtualização, Automação]
+categories: [Infraestrutura, Virtualização, Automação, KVM, Terraform, Packer]
 tags: [KVM, Terraform, Packer, Cloud-init, DevOps]
 description: "Um guia passo a passo para implementar uma infraestrutura KVM com Packer e Terraform, automatizando a criação e o provisionamento de VMs."
 ---

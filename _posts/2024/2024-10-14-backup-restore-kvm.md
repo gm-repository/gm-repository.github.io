@@ -2,7 +2,7 @@
 layout: post
 title: "Backup e Restore de Máquinas Virtuais KVM"
 date: 2024-10-14 11:00:00
-categories: [linux, kvm, virtualizacao, backup, restore]
+categories: [Linux, KVM, Virtualização, Backup, Restore]
 ---
 
 ## **Sumário**

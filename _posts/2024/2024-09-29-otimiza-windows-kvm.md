@@ -1,7 +1,7 @@
 ---
 title: "Otimização do Windows 10 em uma Máquina Virtual KVM"
 date: 2024-09-29 11:33:00 -0300
-categories: [virtualizacao, KVM, windows, otimização]
+categories: [Virtualização, KVM, Windows, Otimização]
 tags: [KVM, Windows 10, virtualização, desempenho, SPICE, VirtIO]
 summary: "Aprenda a otimizar o desempenho do Windows 10 em uma máquina virtual utilizando o KVM, com configurações de CPU, memória, disco e ajustes no Windows."
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "Guia Completo de Gerenciamento de Imagens Docker: Criação, Otimização, Segurança e Automação"
 date: 2024-10-03 11:00:00 -0300
-categories: [docker, devops, containerização]
+categories: [Docker, DevOps, Containers]
 tags: [docker, containers, dockerfile, otimização, segurança, ci-cd]
 excerpt: "Aprenda a gerenciar imagens Docker com práticas recomendadas de criação, otimização, segurança e automação, incluindo pipelines de CI/CD."
 ---

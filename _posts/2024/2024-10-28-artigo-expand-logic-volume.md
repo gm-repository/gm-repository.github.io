@@ -7,6 +7,12 @@ tags:
   - LVM
   - Virtualização
   - Infraestrutura como Código
+categories:
+  - KVM
+  - Terraform
+  - LVM
+  - Virtualização
+  - Infraestrutura como Código
 layout: post
 excerpt: "Aprenda como expandir volumes lógicos em VMs gerenciadas pelo KVM utilizando o Terraform para provisionamento e configuração automatizada."
 ---

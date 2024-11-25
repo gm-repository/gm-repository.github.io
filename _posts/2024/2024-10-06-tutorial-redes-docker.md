@@ -3,8 +3,8 @@ title: Gerenciando Redes no Docker
 description: Um tutorial passo a passo para gerenciar redes Docker, incluindo a criação e remoção de redes, mapeamento de portas, gerenciamento de links entre contêineres, e configuração de DNS.
 date: 2024-10-06 10:30:00 -0300
 version: 1.0
-categories: [Docker, Redes, Contêineres, DevOps]
-tags: [Docker, Redes, Contêineres, Bridge, Host, DNS]
+categories: [Docker, Redes, Containers, DevOps]
+tags: [Docker, Redes, Containers, Bridge, Host, DNS]
 ---
 
 ====== Sumário ======

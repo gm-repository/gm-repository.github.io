@@ -2,7 +2,7 @@
 title: "Instalação e Configuração: KVM e Terraform"
 author: "Gean Martins"
 date: 2024-09-27 10:00:00 -0300
-categories: [Virtualização, Infraestrutura como Código]
+categories: [Virtualização, Infraestrutura como Código, Terraform, KVM, Ubuntu]
 keywords: ["KVM", "Terraform", "virtualização", "infraestrutura como código", "Ubuntu"]
 abstract: "Este documento oferece um guia detalhado para a instalação e configuração do KVM (Kernel-based Virtual Machine) e do Terraform, focando em técnicas para gerenciar máquinas virtuais e infraestruturas de forma eficiente e segura."
 ---
@@ -127,6 +127,12 @@ $ sudo sed -i '/#security_driver = "selinux"/a security_driver = "none"' /etc/li
 $ sudo systemctl restart libvirtd
 ```
 
+**Ou**:
+```bash
+sudo vi /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT="apparmor=0"
+```
+
 ## Instalação do Terraform
 
 ### Atualizar pacotes e instalar ferramentas necessárias
@@ -136,11 +142,6 @@ sudo apt update
 sudo apt install wget curl unzip
 ```
 
-**Ou**:
-```bash
-sudo vi /etc/default/grub
-GRUB_CMDLINE_LINUX_DEFAULT="apparmor=0"
-```
 ### Obter a versão mais recente do Terraform
 ```bash
 # Utiliza o comando curl para consultar a API do GitHub e obter a tag da versão mais recente do Terraform.

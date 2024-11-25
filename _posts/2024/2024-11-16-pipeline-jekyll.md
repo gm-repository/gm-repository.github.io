@@ -2,7 +2,7 @@
 layout: post
 title: "Pipeline CI/CD no GitLab para Blog Jekyll com Docker"
 date: 2024-11-16 17:18:19 -0300
-categories: [ci-cd, devops, jekyll]
+categories: [CI/CD, DevOps, Jekyll]
 tags: [gitlab, docker, nginx, pipeline, jekyll]
 excerpt: "Saiba como implementar uma pipeline CI/CD completa no GitLab para um blog Jekyll utilizando Docker e Nginx com proxy reverso."
 ---

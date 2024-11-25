@@ -2,7 +2,7 @@
 layout: post
 title: "Guia Rápido de Sobrevivência no Emacs"
 date: 2024-11-15 22:23:25 -0300
-categories: [programação, emacs]
+categories: [Programação, Emacs]
 tags: [editor de texto, produtividade, terminal]
 excerpt: "Aprenda os comandos essenciais do Emacs para navegar, editar, salvar arquivos e personalizar o editor de forma eficiente."
 toc: true

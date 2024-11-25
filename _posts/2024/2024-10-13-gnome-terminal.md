@@ -2,7 +2,7 @@
 layout: post
 title: "Otimização do GNOME Terminal no Ubuntu"
 date: 2024-10-13 13:00:00 -0300
-categories: linux terminal produtividade
+categories: [Linux, Terminal, Produtividade]
 ---
 
 ## Sumário

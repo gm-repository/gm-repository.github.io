@@ -2,7 +2,7 @@
 layout: post
 title: "Maximizando a Produtividade no Vim: Dicas, Plugins e Automação"
 date: 2024-10-13 14:30:00 -0300
-categories: vim produtividade linux
+categories: [Vim, Produtividade, Linux]
 ---
 
 

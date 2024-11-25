@@ -12,6 +12,10 @@ tags:
   - nerdfonts
   - tutorial
   - produtividade
+categories:
+  - Ubuntu
+  - Tmux
+  - Vim
 license: "CC BY-SA 4.0"
 language: "pt-BR"
 ---

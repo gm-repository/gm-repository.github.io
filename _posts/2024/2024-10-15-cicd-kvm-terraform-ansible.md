@@ -10,6 +10,9 @@ tags:
   - Infraestrutura
 categories:
   - DevOps
+  - Ansible
+  - Terraform
+  - KVM
   - Automação
   - Infraestrutura como Código
 version: "1.0"

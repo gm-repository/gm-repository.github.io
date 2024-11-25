@@ -11,6 +11,7 @@ tags:
   - Infraestrutura como Código
 categories:
   - DevOps
+  - Packer
   - Virtualização
   - Infraestrutura
   - Automação

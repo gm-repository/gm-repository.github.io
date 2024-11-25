@@ -2,7 +2,7 @@
 layout: post
 title: "Encaminhamento de Porta para Máquinas Virtuais KVM com iptables, Firewalld e UFW"
 date: 2024-10-14 10:00:00 -0300
-categories: [linux, kvm, networking, iptables, firewald, ufw]
+categories: [Linux, KVM, Networking, Iptables, Firewald, Ufw]
 ---
 
 ## **Sumário**

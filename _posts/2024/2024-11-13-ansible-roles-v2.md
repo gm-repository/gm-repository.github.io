@@ -2,6 +2,7 @@
 layout: post
 title: "Guia Completo de Roles no Ansible: Organização, Reuso e Automação Eficiente"
 date: 2024-11-13 16:17:19 -0300
+version: "1.1"
 categories: [Ansible, Automação, DevOps]
 tags: [Ansible, Roles, Automação, DevOps, Playbooks]
 ---

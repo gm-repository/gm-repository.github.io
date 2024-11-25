@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Configuração Completa de Data, Hora, Fuso Horário e Sincronização de Tempo no Linux"
-date: 2023-11-14 20:21:22 -0300
+date: 2024-11-14 20:21:22 -0300
 categories: [Linux, Configuração, Tutoriais]
 tags: [NTP, Chrony, Systemd-timesyncd, Linux, Sincronização de Tempo]
 ---

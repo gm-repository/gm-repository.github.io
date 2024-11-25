@@ -7,13 +7,14 @@ tags: [CRI-O, ContainerD, Kubernetes, Docker, Runtimes]
 summary: "Aprenda os fundamentos de container runtimes, incluindo CRI-O e ContainerD, com conceitos básicos, configurações avançadas e casos de uso."
 ---
 
-### **Introdução Geral**
+### **Introdução**
 
 O mundo da tecnologia está cada vez mais voltado para soluções baseadas em contêineres, e entender os fundamentos dos **container runtimes** é essencial para profissionais de TI que trabalham com infraestrutura moderna. Runtimes como **CRI-O** e **ContainerD** são peças-chave no ecossistema de orquestração de contêineres, especialmente em plataformas como Kubernetes. 
 
 Este tutorial foi desenvolvido para oferecer uma visão abrangente sobre os container runtimes, abordando desde os conceitos básicos, como namespaces e cgroups, até configurações avançadas e integrações práticas. Com ele, você aprenderá a configurar, gerenciar e otimizar CRI-O e ContainerD, além de explorar casos de uso reais e tendências emergentes. Seja você um iniciante no assunto ou um profissional experiente, este material proporcionará o conhecimento necessário para trabalhar com eficiência e confiança em ambientes baseados em contêineres.
 
 ---
+### **Tabela de Conteúdo**
 
 - [1. Introdução aos Container Runtimes](#1-introdução-aos-container-runtimes)
 - [2. Fundamentos de Cgroups, Namespaces e Outras Tecnologias Subjacentes](#2-fundamentos-de-cgroups-namespaces-e-outras-tecnologias-subjacentes)

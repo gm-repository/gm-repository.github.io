@@ -1,6 +1,7 @@
 ---
 title: "Guia Completo de Playbooks no Ansible: Estrutura, Modularização e Práticas Avançadas"
 date: 2024-11-13 15:16:17 -0300
+version: "1.1"
 categories:
   - Ansible
   - Automação

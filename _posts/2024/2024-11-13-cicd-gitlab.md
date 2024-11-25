@@ -15,21 +15,22 @@ Este tutorial explora, passo a passo, o uso do GitLab CI/CD, desde a configuraç
 ---
 
 ### Tabela de Conteúdos
-1. [Introdução ao CI/CD e GitLab Pipelines](#1-introdução-ao-cicd-e-gitlab-pipelines)
-2. [Configuração Inicial do GitLab CI/CD](#2-configuração-inicial-do-gitlab-cicd)
-3. [Estrutura do Arquivo `.gitlab-ci.yml`](#3-estrutura-do-arquivo-gitlab-ciyml)
-4. [Configuração e Registro do GitLab Runner](#4-configuração-e-registro-do-gitlab-runner)
-5. [Criando Jobs e Stages no Pipeline](#5-criando-jobs-e-stages-no-gitlab-pipeline)
-6. [Uso de Variáveis de Ambiente](#6-uso-de-variáveis-de-ambiente-no-gitlab-cicd)
-7. [Artefatos e Cache no Pipeline](#7-artefatos-e-cache-no-gitlab-pipeline)
-8. [Testes Automatizados com GitLab CI/CD](#8-testes-automatizados-com-gitlab-cicd)
-9. [Deploy Automatizado em Ambientes de Staging e Produção](#9-deploy-automatizado-em-ambientes-de-staging-e-produção)
-10. [Rollback e Deploy Canário no GitLab CI/CD](#10-rollback-e-deploy-canário-no-gitlab-cicd)
-11. [Pipeline Dinâmico com Includes e Templates](#11-pipeline-dinâmico-com-includes-e-templates)
-12. [Jobs Manuais e Aprovações em Pipelines](#12-jobs-manuais-e-aprovações-em-pipelines)
-13. [Monitoramento e Logs de Execução no Pipeline](#13-monitoramento-e-logs-de-execução-no-pipeline)
-14. [Segurança e Boas Práticas no GitLab CI/CD](#14-segurança-e-boas-práticas-no-gitlab-cicd)
-15. [Casos de Uso Avançados e Integração com Ferramentas Externas](#15-casos-de-uso-avançados-e-integração-com-ferramentas-externas)
+
+- [Introdução ao CI/CD e GitLab Pipelines](#1-introdução-ao-cicd-e-gitlab-pipelines)
+- [Configuração Inicial do GitLab CI/CD](#2-configuração-inicial-do-gitlab-cicd)
+- [Estrutura do Arquivo `.gitlab-ci.yml`](#3-estrutura-do-arquivo-gitlab-ciyml)
+- [Configuração e Registro do GitLab Runner](#4-configuração-e-registro-do-gitlab-runner)
+- [Criando Jobs e Stages no Pipeline](#5-criando-jobs-e-stages-no-gitlab-pipeline)
+- [Uso de Variáveis de Ambiente](#6-uso-de-variáveis-de-ambiente-no-gitlab-cicd)
+- [Artefatos e Cache no Pipeline](#7-artefatos-e-cache-no-gitlab-pipeline)
+- [Testes Automatizados com GitLab CI/CD](#8-testes-automatizados-com-gitlab-cicd)
+- [Deploy Automatizado em Ambientes de Staging e Produção](#9-deploy-automatizado-em-ambientes-de-staging-e-produção)
+- [Rollback e Deploy Canário no GitLab CI/CD](#10-rollback-e-deploy-canário-no-gitlab-cicd)
+- [Pipeline Dinâmico com Includes e Templates](#11-pipeline-dinâmico-com-includes-e-templates)
+- [Jobs Manuais e Aprovações em Pipelines](#12-jobs-manuais-e-aprovações-em-pipelines)
+- [Monitoramento e Logs de Execução no Pipeline](#13-monitoramento-e-logs-de-execução-no-pipeline)
+- [Segurança e Boas Práticas no GitLab CI/CD](#14-segurança-e-boas-práticas-no-gitlab-cicd)
+- [Casos de Uso Avançados e Integração com Ferramentas Externas](#15-casos-de-uso-avançados-e-integração-com-ferramentas-externas)
 
 ---
 

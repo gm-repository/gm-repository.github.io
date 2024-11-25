@@ -1,7 +1,7 @@
 ---
 title: "Autenticação em Linux: Guia Completo de Configuração e Automação"
 layout: post
-date: 2023-11-14 12:13:14 -0300
+date: 2024-11-14 12:13:14 -0300
 categories: [Linux, Autenticação, Segurança]
 ---
 

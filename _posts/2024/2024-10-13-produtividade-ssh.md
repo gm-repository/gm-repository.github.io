@@ -4,6 +4,7 @@ title: "Tutorial Completo: Otimização do Uso do SSH com GNOME Terminal"
 date: 2024-10-13 22:00:00 -0300
 description: "Aprenda a configurar e gerenciar conexões SSH em sistemas Linux, incluindo automação, personalização e ferramentas complementares."
 tags: [SSH, Linux, Automação, Segurança]
+categories: [SSH, Linux]
 ---
 
 

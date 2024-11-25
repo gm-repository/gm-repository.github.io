@@ -11,6 +11,7 @@ tags:
   - Virtualização
   - Automação
   - KVM
+categories: [Virtualização, KVM, Kickstart, Terraform]
 license: "MIT"
 ---
 

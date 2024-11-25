@@ -2,7 +2,7 @@
 layout: post
 title: "Tutorial Completo: Usando Docker em Pipelines CI/CD no GitLab"
 date: 2024-11-10 20:21:22 -0300
-categories: [Docker, GitLab, CI-CD, DevOps]
+categories: [Docker, GitLab, CI/CD, DevOps]
 tags: [docker, gitlab, ci-cd, automação, devops]
 excerpt: "Aprenda a integrar Docker com GitLab CI/CD para automatizar processos de build, testes e deploys, garantindo eficiência e segurança nos fluxos de trabalho."
 ---

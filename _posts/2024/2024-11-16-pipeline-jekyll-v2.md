@@ -318,6 +318,7 @@ deploy:
   only:
     - main
 ```
+{: file=".gitlab-ci.yml" }
 
 ---
 

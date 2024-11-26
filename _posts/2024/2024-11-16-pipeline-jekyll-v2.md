@@ -85,6 +85,59 @@ O Chirpy-Starter oferece um design responsivo e funcionalidades integradas como 
 
 ---
 
+### **1.4 Criar Token de Acesso no Docker Hub**
+
+#### **Acessar o Docker Hub**
+
+1. Acesse sua conta no [Docker Hub](https://hub.docker.com).
+2. Faça login com seu nome de usuário e senha.
+
+#### **Navegar para as Configurações de Token**
+
+1. Clique no seu avatar ou nome de usuário no canto superior direito.
+2. Vá para **Account Settings > Security > New Access Token**.
+
+#### **Criar o Token**
+
+1. Na página de tokens, clique em **Create Access Token**.
+2. Insira um nome descritivo para o token, como `gitlab-ci-token`.
+3. Selecione **Read/Write** nas permissões.
+4. Clique em **Generate**.
+
+#### **Salvar o Token**
+
+1. Copie o token gerado.  
+2. Guarde o token em um local seguro, pois você não poderá visualizá-lo novamente.
+
+---
+
+### **1.5 Criar Variáveis de Acesso do Docker Hub no Projeto do GitLab**
+
+#### **Acessar Configurações de CI/CD no GitLab**
+
+1. Acesse o repositório no GitLab.  
+2. No menu lateral, clique em **Settings > CI/CD**.
+
+#### **Adicionar Variáveis do Docker Hub**
+
+1. Role a página até a seção **Variables** e clique em **Expand**.  
+2. Clique em **Add Variable** para criar cada variável necessária:
+   - **`DOCKER_USERNAME`**:  
+     - Valor: seu nome de usuário no Docker Hub.  
+     - Tipo: `Variable`.  
+     - Protegida: Marque se só será usada em branches protegidas.  
+   - **`DOCKER_PASSWORD`**:  
+     - Valor: o token gerado no Docker Hub.  
+     - Tipo: `Variable`.  
+     - Protegida: Marque se só será usada em branches protegidas.
+
+#### **Salvar e Testar**
+
+1. Após adicionar as variáveis, clique em **Save Variables**.  
+2. Verifique se as variáveis foram salvas corretamente.
+
+---
+
 ### **2. Criando o Dockerfile e Preparando o Ambiente de Build**
 
 O Dockerfile define como a imagem do contêiner será construída, encapsulando o Jekyll e suas dependências em um ambiente isolado. Usaremos um **multi-stage build** para criar uma imagem otimizada.
@@ -267,17 +320,7 @@ deploy:
 
 ---
 
-### **3.2 Configurar Variáveis no GitLab**
-
-1. Acesse o repositório no GitLab.
-2. Navegue até **Settings > CI/CD > Variables**.
-3. Adicione as seguintes variáveis:
-   - **`DOCKER_USERNAME`**: Seu nome de usuário no Docker Hub.
-   - **`DOCKER_PASSWORD`**: O token de acesso gerado no Docker Hub.
-
----
-
-### **3.3 Explicação do Pipeline**
+### **3.2 Explicação do Pipeline**
 
 1. **Stages:**
    - **Build:** Constrói a imagem Docker e a publica no Docker Hub.
@@ -294,7 +337,7 @@ deploy:
 
 ---
 
-### **3.4 Agendar Builds Automáticos**
+### **3.3 Agendar Builds Automáticos**
 
 1. Acesse **CI/CD > Schedules** no GitLab.
 2. Configure a execução automática da pipeline semanalmente ou em intervalos definidos.
@@ -302,7 +345,7 @@ deploy:
 
 ---
 
-### **3.5 Testar o Pipeline**
+### **3.4 Testar o Pipeline**
 
 1. Faça um commit para a branch `main`:
    ```bash

@@ -1993,7 +1993,7 @@ Configure o Ansible para utilizar as saídas do Terraform como inventário.
 plugin: yaml
 hosts:
   ubuntu-vm:
-    ansible_host: "{{ lookup('file', 'terraform-output.json') }}"
+    ansible_host: "{% raw %}{{ lookup('file', 'terraform-output.json') }}{% endraw %}"
     ansible_user: ubuntu
     ansible_ssh_private_key_file: /path/to/private-key
 ```

@@ -101,57 +101,34 @@ O Dockerfile define como a imagem do contêiner será construída, encapsulando 
 2. Edite o `Dockerfile` com o seguinte conteúdo:
 
 ```dockerfile
-# Fase 1: Construção
-FROM ruby:3.2-alpine AS builder
+# Etapa 1: Construir os arquivos estáticos com o Jekyll
+FROM ruby:3.3-alpine AS builder
 
-# Variáveis de ambiente
-ENV BUNDLER_VERSION=2.4.0
-ENV JEKYLL_ENV=production
+# Defina o diretório de trabalho
+WORKDIR /app
 
-# Instalar dependências necessárias
-RUN apk update && apk add --no-cache \
-    build-base \
-    gcc \
-    libc-dev \
-    linux-headers \
-    nodejs \
-    git \
-    libxml2-dev \
-    libxslt-dev \
-    tzdata \
-    bash
-
-# Configurar o diretório de trabalho
-WORKDIR /usr/src/app
-
-# Copiar Gemfile do chirpy-starter
+# Copie o Gemfile e o Gemfile.lock para o container
 COPY Gemfile ./
 
-# Instalar Bundler e dependências do Jekyll
-RUN gem install bundler -v $BUNDLER_VERSION && bundle install --jobs 4 --retry 3
+# Instale as dependências
+RUN bundle install
 
-# Copiar o restante dos arquivos do projeto
+# Copie o restante dos arquivos da aplicação
 COPY . .
 
-# Construir o site com o Chirpy
-RUN bundle exec jekyll build --destination /usr/src/app/_site
+# Gere os arquivos estáticos
+RUN bundle exec jekyll build --destination /app/_site
 
-# Fase 2: Produção
-FROM nginx:alpine
+# Etapa 2: Servir os arquivos estáticos com Nginx
+FROM nginx:1.27-alpine
 
-# Configurar o diretório de trabalho do nginx
-WORKDIR /usr/share/nginx/html
+# Copie os arquivos estáticos da etapa de build para o diretório do Nginx
+COPY --from=builder /app/_site /usr/share/nginx/html
 
-# Remover arquivos padrão do nginx
-RUN rm -rf ./*
-
-# Copiar o site gerado na fase anterior
-COPY --from=builder /usr/src/app/_site ./
-
-# Expor a porta padrão do nginx
+# Exponha a porta padrão do Nginx
 EXPOSE 80
 
-# Comando para iniciar o servidor
+# Use o comando padrão do Nginx
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
@@ -160,11 +137,11 @@ CMD ["nginx", "-g", "daemon off;"]
 ### **2.2 Explicando o Dockerfile**
 
 1. **Fase de Construção (`builder`):**
-   - Usa a imagem leve `ruby:3.2-alpine` para instalar o Jekyll.
+   - Usa a imagem leve `ruby:3.3-alpine` para instalar o Jekyll.
    - Instala todas as dependências necessárias e compila o site para a pasta `_site`.
 
 2. **Fase de Produção:**
-   - Usa `nginx:alpine` para servir o site estático gerado.
+   - Usa `nginx:1.27-alpine` para servir o site estático gerado.
    - Apenas os arquivos necessários são copiados, reduzindo o tamanho final da imagem.
 
 ---
@@ -224,11 +201,10 @@ Agora, vamos configurar o pipeline CI/CD no GitLab para automatizar a construç�
 ```yaml
 stages:
   - build
-  - test
   - deploy
 
 variables:
-  IMAGE_NAME: $DOCKER_USERNAME/jekyll-blog  # Nome da imagem no Docker Hub
+  IMAGE_NAME: $DOCKER_USERNAME/chirpy-starter  # Nome da imagem no Docker Hub
 
 # Job para construir e enviar a imagem para o Docker Hub
 build:
@@ -245,36 +221,46 @@ build:
     - echo "=== Enviando a imagem para o Docker Hub ==="
     - docker push $IMAGE_NAME:$CI_COMMIT_SHA
     - docker push $IMAGE_NAME:latest
-  only:
-    - main
-
-# Job para testar o site gerado
-test_links:
-  stage: test
-  image: ruby:3.2-alpine
-  script:
-    - apk add --no-cache build-base nodejs
-    - gem install bundler html-proofer
-    - bundle install
-    - bundle exec jekyll build
-    - bundle exec htmlproofer ./_site --assume-extension --check-html --disable-external
+    - echo "=== Obtendo o digest da imagem ==="
+      # Extraindo o digest da imagem enviada para uso no deploy
+    - IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE_NAME:$CI_COMMIT_SHA)
+    - echo $IMAGE_DIGEST > image_digest.txt
+  artifacts:
+    paths:
+      - image_digest.txt  # Salva o digest da imagem para o job de deploy
   only:
     - main
 
 # Job para deploy na VPS
 deploy:
   stage: deploy
-  image: docker/compose:latest
+  image: docker:latest
   tags:
-    - runner-jekyll  # Tag para direcionar ao runner na VPS
+    - chirpy-starter
+  before_script:
+    - echo "=== Logando no Docker Host ==="
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
-    - echo "=== Parando contêiner existente ==="
-    - docker stop jekyll-blog || echo "Nenhum contêiner em execução para parar"
-    - echo "=== Removendo contêiner antigo ==="
-    - docker rm jekyll-blog || echo "Nenhum contêiner antigo para remover"
+    - |
+      IMAGE_DIGEST=$(cat image_digest.txt)
+      if [ -z "$IMAGE_DIGEST" ]; then
+        echo "Erro: IMAGE_DIGEST está vazio ou não definido."
+        exit 1
+      fi
+      echo "Imagem a ser usada: ${IMAGE_DIGEST}"
+    - echo "=== Removendo imagens locais antigas ==="
+    - docker rmi $IMAGE_NAME:latest || echo "Imagem local 'latest' não encontrada"
+    - docker rmi $IMAGE_NAME:$CI_COMMIT_SHA || echo "Imagem local específica não encontrada"
+    - echo "=== Baixando a imagem mais recente ==="
+    - docker pull $IMAGE_DIGEST
+    - echo "=== Parando e removendo contêiner antigo ==="
+    - docker stop chirpy-starter || echo "Nenhum contêiner em execução para parar"
+    - docker rm chirpy-starter || echo "Nenhum contêiner antigo para remover"
     - echo "=== Iniciando novo contêiner ==="
-    - docker run -d --name jekyll-blog -p 8092:80 $IMAGE_NAME:latest
+    - docker run -d --name chirpy-starter -p 8092:80 $IMAGE_DIGEST
     - echo "=== Novo contêiner iniciado com sucesso ==="
+  dependencies:
+    - build
   only:
     - main
 ```
@@ -288,7 +274,6 @@ deploy:
 3. Adicione as seguintes variáveis:
    - **`DOCKER_USERNAME`**: Seu nome de usuário no Docker Hub.
    - **`DOCKER_PASSWORD`**: O token de acesso gerado no Docker Hub.
-   - **`CI_COMMIT_SHA`**: Valor padrão do commit atual (já integrado ao GitLab CI/CD).
 
 ---
 

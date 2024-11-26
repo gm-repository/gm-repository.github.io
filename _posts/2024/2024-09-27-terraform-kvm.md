@@ -1,9 +1,9 @@
 ---
 title: "Instalação e Configuração: KVM e Terraform"
 author: "Gean Martins"
-date: 2024-09-27 10:00:00 -0300
-categories: [Virtualização, Infraestrutura como Código, Terraform, KVM, Ubuntu]
-keywords: ["KVM", "Terraform", "virtualização", "infraestrutura como código", "Ubuntu"]
+date: 2024-11-26 15:16:17 -0300
+categories: [Virtualization, IaC, Terraform, KVM, Ubuntu]
+keywords: [KVM, Terraform, Virtualization, IaC, Ubuntu]
 abstract: "Este documento oferece um guia detalhado para a instalação e configuração do KVM (Kernel-based Virtual Machine) e do Terraform, focando em técnicas para gerenciar máquinas virtuais e infraestruturas de forma eficiente e segura."
 ---
 

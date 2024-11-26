@@ -184,6 +184,7 @@ EXPOSE 80
 # Use o comando padrão do Nginx
 CMD ["nginx", "-g", "daemon off;"]
 ```
+{: file="Dockerfile" }
 
 ---
 

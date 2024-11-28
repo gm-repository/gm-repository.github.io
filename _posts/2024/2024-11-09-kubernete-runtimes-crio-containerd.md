@@ -2,9 +2,9 @@
 layout: post
 title: "Guia Completo de Kubernetes com Containerd e CRI-O: Configuração, Redes Dual-Stack e Otimização"
 description: "Este tutorial detalhado explora a configuração e gerenciamento de clusters Kubernetes com os runtimes Containerd e CRI-O, abordando desde a instalação e configuração inicial até práticas avançadas de redes dual-stack (IPv4 e IPv6), segurança, otimização de recursos e monitoramento. Ideal para engenheiros de DevOps e administradores de sistemas que buscam implementar Kubernetes com alta performance, segurança e observabilidade."
-date: 2024-11-09 23:24:25 -0300
-categories: [Kubernetes, Containerd, CRI-O, Networking, Dual-Stack]
-tags: [Kubernetes, Containerd, CRI-O, IPv6, Dual-Stack, DevOps, Calico, Cilium]
+date: 2024-11-27 16:17:18 -0300
+categories: [Kubernetes, Containerd, CRI-O]
+tags: [Kubernetes, Containerd, CRI-O]
 ---
 
 ### **Introdução**

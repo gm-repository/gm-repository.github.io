@@ -455,8 +455,6 @@ Se quiser que esse perfil seja carregado automaticamente ao abrir o GNOME Termin
 dconf write /org/gnome/terminal/legacy/profiles:/default "'$PROFILE_ID'"
 ```
 
-> Dica: Se quiser um esquema de cores diferente, pode experimentar outras paletas disponíveis aqui.
-
 ---
 
 ## Criando um Perfil GNOME Terminal Usando um Script  
@@ -497,7 +495,8 @@ dconf write /org/gnome/terminal/legacy/profiles:/list \
 dconf write /org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/visible-name "'Qogir'"
 
 # Configurando cores
-dconf write /org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/background-color "'#2E3440'"
+#dconf write /org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/background-color "'#2E3440'"
+dconf write /org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/background-color "'#2C2C2C'"
 dconf write /org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/foreground-color "'#D8DEE9'"
 dconf write /org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/cursor-color "'#88C0D0'"
 dconf write /org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/palette \
